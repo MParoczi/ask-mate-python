@@ -14,3 +14,9 @@ def write_file(file_name, data, header):
         writer.writeheader()
 
         writer.writerows(data)
+
+
+def append_data(file_name, dict_to_append):
+    data = read_file(file_name)
+    data.append(dict_to_append)
+    return data
