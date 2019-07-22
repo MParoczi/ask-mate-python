@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Display Question</title>
+</head>
+<body>
+    <h1>Question:</h1>
+    <table>
+         <thead>
+                <tr>
+                    <td>Id</td>
+                    <td>Submission Time</td>
+                    <td>View Number</td>
+                    <td>Vote Number</td>
+                    <td>Title</td>
+                    <td>Message</td>
+                    <td>Image</td>
+                </tr>
+            </thead>
+        <tbody>
+            <tr>
+                <td>{{row.id}}</td>
+                <td>{{row.submission_time}}</td>
+                <td>{{row.view_number}}</td>
+                <td>{{row.vote_number}}</td>
+                <td>{{row.title}}</td>
+                <td>{{row.message}}</td>
+                <td>{{row.image}}</td>
+            </tr>
+        </tbody>
+        <br>
+     <h2>Answers:</h2>
+        <table>
+            <thead>
+                <tr></tr>
+            </thead>
+        </table>
+    </table>
+</body>
+</html>
