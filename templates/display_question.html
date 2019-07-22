@@ -4,9 +4,10 @@
     <title>Display Question</title>
 </head>
 <body>
-    <h1>Question:</h1>
+    <div>
     <table>
          <thead>
+         <th>Question Details:</th>
                 <tr>
                     <td>Id</td>
                     <td>Submission Time</td>
@@ -18,23 +19,53 @@
                 </tr>
             </thead>
         <tbody>
+            {% for question_row in question %}
             <tr>
-                <td>{{row.id}}</td>
-                <td>{{row.submission_time}}</td>
-                <td>{{row.view_number}}</td>
-                <td>{{row.vote_number}}</td>
-                <td>{{row.title}}</td>
-                <td>{{row.message}}</td>
-                <td>{{row.image}}</td>
+                <td>{{question_row.id}}</td>
+                <td>{{question_row.submission_time}}</td>
+                <td>{{question_row.view_number}}</td>
+                <td>{{question_row.vote_number}}</td>
+                <td>{{question_row.title}}</td>
+                <td>{{question_row.message}}</td>
+                <td>{{question_row.image}}</td>
             </tr>
+            {% endfor %}
         </tbody>
+    </div>
         <br>
-     <h2>Answers:</h2>
+    <div>
         <table>
             <thead>
-                <tr></tr>
+            <th>Answers:</th>
+                <tr>
+                    <td>Id</td>
+                    <td>Submission Time</td>
+                    <td>Vote Number</td>
+                    <td>Question Id</td>
+                    <td>Message</td>
+                    <td>Image</td>
+                </tr>
             </thead>
+            <tbody>
+            {% if answers %}
+                {% for answer_row in answers %}
+                <tr>
+                    <td>{{answer_row.id}}</td>
+                    <td>{{answer_row.submission_time}}</td>
+                    <td>{{answer_row.vote_number}}</td>
+                    <td>{{answer_row.question_id}}</td>
+                    <td>{{answer_row.message}}</td>
+                    <td>{{answer_row.image}}</td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td>There is no answer to this question yet.</td>
+                </tr>
+            {% endif %}
+            </tbody>
         </table>
     </table>
+    </div>
 </body>
 </html>
