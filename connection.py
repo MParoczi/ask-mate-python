@@ -7,5 +7,10 @@ def read_file(file_name):
         return [row for row in reader]
 
 
-def write_file(file_name):
-    pass
+def write_file(file_name, data, header):
+    with open(file_name, 'w+') as csv_file:
+        writer = csv.DictWriter(csv_file, fieldnames=header, restval="None")
+
+        writer.writeheader()
+
+        writer.writerows(data)
