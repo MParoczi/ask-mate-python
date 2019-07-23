@@ -1,4 +1,6 @@
 import connection
+import calendar
+import time
 
 
 def get_data_by_key(file_name, searching_key, key_to_search):
@@ -15,3 +17,8 @@ def create_new_id(file_name):
     data = connection.read_file(file_name)
     highest_id = max(data, key=lambda x: int(x['id']))['id']
     return highest_id + NEW_ID
+
+
+def add_submission_time():
+    submission_time = calendar.timegm(time.gmtime())
+    return submission_time
