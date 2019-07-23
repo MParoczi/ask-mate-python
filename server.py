@@ -14,16 +14,35 @@ def route_list():
     return render_template('list.html', questions=questions)
 
 
-@app.route('/question/<question_id>')
+@app.route('/question/<question_id>', methods=['GET', 'POST'])
 def route_question(question_id):
-    row = data_manager.get_data_by_key('sample_data/question.csv', question_id, 'id')
-    answers = data_manager.get_data_by_key('sample_data/answer.csv', question_id, 'question_id')
-    return render_template('display_question.html', question=row, answers=answers)
+    if request.method == 'GET':
+
+        row = data_manager.get_data_by_key('sample_data/question.csv', question_id, 'id')
+        answers = data_manager.get_data_by_key('sample_data/answer.csv', question_id, 'question_id')
+        return render_template('display_question.html', question=row, answers=answers, question_id=question_id)
+    else:
+        id = data_manager.create_new_id('sample_data/answer.csv')
+        submission_time = data_manager.add_submission_time()
+        data = {'message': request.form.get('message'),
+                'question_id': question_id,
+                'id': id,
+                'submission_time': submission_time}
+        connection.append_data('sample_data/answer.csv', data)
+
+        row = data_manager.get_data_by_key('sample_data/question.csv', question_id, 'id')
+        answers = data_manager.get_data_by_key('sample_data/answer.csv', question_id, 'question_id')
+        return render_template('display_question.html', question=row, answers=answers)
 
 
 @app.route('/add-question', methods=['GET', 'POST'])
 def add_question():
     return render_template('add_question.html')
+
+
+@app.route('/question/<question_id>/add-new-answer')
+def route_new_answer(question_id):
+    return render_template('add_new_answer.html', question_id=question_id)
 
 
 if __name__ == '__main__':
