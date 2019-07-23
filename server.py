@@ -30,7 +30,7 @@ def route_question(question_id):
                 'question_id': question_id,
                 'id': id,
                 'submission_time': submission_time}
-        connection.append_data('sample_data/answer.csv', data)
+        connection.append_data('sample_data/answer.csv', data, connection.answer_header)
 
         row = data_manager.get_data_by_key('sample_data/question.csv', question_id, 'id')
         answers = data_manager.get_data_by_key('sample_data/answer.csv', question_id, 'question_id')
@@ -39,6 +39,20 @@ def route_question(question_id):
 
 @app.route('/add-question', methods=['GET', 'POST'])
 def add_question():
+    if request.method == 'POST':
+        INITIAL_VIEW = 0
+        new_question = {}
+
+        new_question['id'] = data_manager.create_new_id('sample_data/question.csv')
+        new_question['submission_time'] = data_manager.add_submission_time()
+        new_question['view_number'] = INITIAL_VIEW
+        new_question['title'] = request.form['question_title']
+        new_question['message'] = request.form['question']
+
+        connection.append_data('sample_data/question.csv', new_question, data_manager.question_headers)
+
+        return redirect('/')
+
     return render_template('add_question.html')
 
 
