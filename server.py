@@ -1,10 +1,19 @@
 from flask import Flask, render_template, request, redirect, url_for
+
 import data_manager
+
+import connection
 
 app = Flask(__name__)
 
 
 @app.route('/')
+@app.route('/list')
+def route_list():
+    questions = connection.read_file('sample_data/question.csv')
+    return render_template('list.html', questions=questions)
+
+
 @app.route('/question/<question_id>')
 def route_question(question_id):
     row = data_manager.get_data_by_key('sample_data/question.csv', question_id, 'id')
