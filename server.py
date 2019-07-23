@@ -16,6 +16,7 @@ def route_list():
 
 @app.route('/question/<question_id>')
 def route_question(question_id):
+    data_manager.count_views_question(question_id)
     row = data_manager.get_data_by_key('sample_data/question.csv', question_id, 'id')
     answers = data_manager.get_data_by_key('sample_data/answer.csv', question_id, 'question_id')
     return render_template('display_question.html', question=row, answers=answers)
