@@ -47,7 +47,7 @@
                 </tr>
             </thead>
             <tbody>
-            {% if answers %}
+
                 {% for answer_row in answers %}
                 <tr>
                     <td>{{answer_row.id}}</td>
@@ -58,14 +58,14 @@
                     <td>{{answer_row.image}}</td>
                 </tr>
                 {% endfor %}
-            {% else %}
+
                 <tr>
                     <td colspan="4"><strong>There is no answer to this question yet.</strong></td>
                 </tr>
                 <tr>
-                    <td colspan="4"><a href="/add_answer">Click to add an answer.</td>
+                    <td colspan="4"><a href="/question/{{ question_id }}/add-new-answer">Click to add an answer.</td>
                 </tr>
-            {% endif %}
+
             </tbody>
         </table>
     </table>

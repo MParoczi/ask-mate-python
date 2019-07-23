@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add an Answer</title>
+</head>
+<body>
+<form action="/question/{{ question_id }}" method="post">
+    <textarea id="message" name="message" minlength="10">Your Answer:</textarea>
+    <br>
+    <input type="submit" value="Submit Your Answer">
+</form>
+</body>
+</html>
