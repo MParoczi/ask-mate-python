@@ -46,8 +46,11 @@ def add_question():
     return render_template('add_question.html')
 
 
-@app.route('/question/<question_id>/add-new-answer')
+@app.route('/question/<question_id>/add-new-answer', methods=['GET', 'POST'])
 def route_new_answer(question_id):
+    if request.method == 'POST':
+        data_manager.make_new_answer(request.form, question_id)
+        return redirect('/question/<question_id>')
     return render_template('add_new_answer.html', question_id=question_id)
 
 
@@ -57,6 +60,16 @@ def delete_question(question_id):
         data_manager.delete_question_by_id(question_id)
 
         return redirect('/list')
+
+
+@app.route('/question/<question_id>/edit', methods=['GET', 'POST'])
+def route_question_edit(question_id):
+    if request.method == 'GET':
+        row = data_manager.get_data_by_key(question_file_name, question_id, 'id')
+        return render_template('question_edit.html', rows=row, question_id=question_id)
+    else:
+        data_manager.edit_question(request.form, question_id)
+        return redirect('/')
 
 
 if __name__ == '__main__':

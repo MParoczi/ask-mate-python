@@ -43,25 +43,30 @@ def count_views_question(question_id):
 
 
 def make_new_question(request_function):
-    INITIAL_VIEW = 0
+    INITIAL_VALUE = 0
     new_question = {}
 
     new_question['id'] = create_new_id(question_file_name)
     new_question['submission_time'] = add_submission_time()
-    new_question['view_number'] = INITIAL_VIEW
+    new_question['view_number'] = INITIAL_VALUE
+    new_question['vote_number'] = INITIAL_VALUE
     new_question['title'] = request_function['question_title']
     new_question['message'] = request_function['question']
+
 
     connection.append_data(question_file_name, new_question, question_header)
 
 
 def make_new_answer(request_function, question_id):
+    INITIAL_VALUE = 0
     id = create_new_id(answer_file_name)
     submission_time = add_submission_time()
-    data = {'message': request_function.get('message'),
+    data = {'id': id,
+            'submission_time': submission_time,
+            'vote_number': INITIAL_VALUE,
             'question_id': question_id,
-            'id': id,
-            'submission_time': submission_time}
+            'message': request_function.get('message'),
+            'image': request_function.get('image')}
     connection.append_data(answer_file_name, data, answer_header)
 
 
@@ -72,6 +77,25 @@ def convert_unix_to_human_time(data_from_csv):
         question['submission_time'] = datetime.fromtimestamp(int(question['submission_time']))
         rows.append(question)
     return rows
+
+
+def edit_question(request_function, question_id):
+
+    data = {'id': question_id,
+            'submission_time': request_function.get('submission_time'),
+            'view_number': request_function.get('view_number'),
+            'vote_number': request_function.get('vote_number'),
+            'title': request_function.get('title'),
+            'message': request_function.get('message'),
+            'image': request_function.get('image')}
+
+    data_to_modify = connection.read_file(question_file_name)
+
+    for row in data_to_modify:
+        if row['id'] == data['id']:
+            row.update(data)
+
+    connection.write_file(question_file_name, data_to_modify, question_header)
 
 
 def delete_question_by_id(question_id):
