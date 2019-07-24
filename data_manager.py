@@ -1,10 +1,10 @@
 import connection
+
 import calendar
+
 import time
 
-
-question_headers = ['id', 'submission_time', 'view_number', 'vote_number', 'title', 'message', 'image']
-question_file_name = 'sample_data/question.csv'
+from util import question_file_name, question_header
 
 
 def get_data_by_key(file_name, searching_key, key_to_search):
@@ -38,4 +38,4 @@ def count_views_question(question_id):
             row['view_number'] = int(row['view_number']) + NEW_VIEW
         rows.append(row)
 
-    connection.write_file(question_file_name, rows, question_headers)
+    connection.write_file(question_file_name, rows, question_header)
