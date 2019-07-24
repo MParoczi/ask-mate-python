@@ -1,6 +1,7 @@
 import connection
 import calendar
 import time
+from datetime import datetime
 
 
 question_headers = ['id', 'submission_time', 'view_number', 'vote_number', 'title', 'message', 'image']
@@ -39,3 +40,13 @@ def count_views_question(question_id):
         rows.append(row)
 
     connection.write_file(question_file_name, rows, question_headers)
+
+
+def convert_unix_to_human_time(data_from_csv):
+    data = data_from_csv
+    rows = []
+    for question in data:
+        question['submission_time'] = datetime.fromtimestamp(int(question['submission_time']))
+        rows.append(question)
+    return rows
+
