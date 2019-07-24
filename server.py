@@ -24,16 +24,12 @@ def route_question(question_id):
 
     if request.method == 'GET':
         data_manager.count_views_question(question_id)
-
-        row = data_manager.convert_unix_to_human_time(data_manager.get_data_by_key(question_file_name, question_id, 'id'))
-        answers = data_manager.convert_unix_to_human_time(data_manager.get_data_by_key(answer_file_name, question_id, 'question_id'))
-        return render_template('display_question.html', question=row, answers=answers, question_id=question_id)
     else:
         data_manager.make_new_answer(request.form, question_id)
 
-        row = data_manager.convert_unix_to_human_time(data_manager.get_data_by_key(question_file_name, question_id, 'id'))
-        answers = data_manager.convert_unix_to_human_time(data_manager.get_data_by_key(answer_file_name, question_id, 'question_id'))
-        return render_template('display_question.html', question=row, answers=answers, question_id=question_id)
+    row = data_manager.convert_unix_to_human_time(data_manager.get_data_by_key(question_file_name, question_id, 'id'))
+    answers = data_manager.convert_unix_to_human_time(data_manager.get_data_by_key(answer_file_name, question_id, 'question_id'))
+    return render_template('display_question.html', question=row, answers=answers, question_id=question_id)
 
 
 @app.route('/add-question', methods=['GET', 'POST'])
