@@ -20,9 +20,9 @@ def route_list():
 
 @app.route('/question/<question_id>', methods=['GET', 'POST'])
 def route_question(question_id):
-    data_manager.count_views_question(question_id)
 
     if request.method == 'GET':
+        data_manager.count_views_question(question_id)
 
         row = data_manager.get_data_by_key(question_file_name, question_id, 'id')
         answers = data_manager.get_data_by_key(answer_file_name, question_id, 'question_id')
