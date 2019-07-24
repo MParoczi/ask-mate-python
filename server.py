@@ -44,16 +44,7 @@ def route_question(question_id):
 @app.route('/add-question', methods=['GET', 'POST'])
 def add_question():
     if request.method == 'POST':
-        INITIAL_VIEW = 0
-        new_question = {}
-
-        new_question['id'] = data_manager.create_new_id(question_file_name)
-        new_question['submission_time'] = data_manager.add_submission_time()
-        new_question['view_number'] = INITIAL_VIEW
-        new_question['title'] = request.form['question_title']
-        new_question['message'] = request.form['question']
-
-        connection.append_data(question_file_name, new_question, question_header)
+        data_manager.make_new_question(request.form)
 
         return redirect('/')
 

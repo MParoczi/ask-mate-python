@@ -39,3 +39,16 @@ def count_views_question(question_id):
         rows.append(row)
 
     connection.write_file(question_file_name, rows, question_header)
+
+
+def make_new_question(request_function):
+    INITIAL_VIEW = 0
+    new_question = {}
+
+    new_question['id'] = create_new_id(question_file_name)
+    new_question['submission_time'] = add_submission_time()
+    new_question['view_number'] = INITIAL_VIEW
+    new_question['title'] = request_function['question_title']
+    new_question['message'] = request_function['question']
+
+    connection.append_data(question_file_name, new_question, question_header)
