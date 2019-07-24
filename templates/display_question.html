@@ -11,13 +11,13 @@
     <table>
          <thead>
             <tr>
-                <td>Id</td>
-                <td>Submission Time</td>
-                <td>View Number</td>
-                <td>Vote Number</td>
-                <td>Title</td>
-                <td>Message</td>
-                <td>Image</td>
+                <th>Id</th>
+                <th>Submission Time</th>
+                <th>View Number</th>
+                <th>Vote Number</th>
+                <th>Title</th>
+                <th>Message</th>
+                <th>Image</th>
             </tr>
             </thead>
         <tbody>
@@ -41,14 +41,15 @@
     </div>
     <div>
         <table>
+            {% if answers %}
             <thead>
                 <tr>
-                    <td>Id</td>
-                    <td>Submission Time</td>
-                    <td>Vote Number</td>
-                    <td>Question Id</td>
-                    <td>Message</td>
-                    <td>Image</td>
+                    <th>Id</th>
+                    <th>Submission Time</th>
+                    <th>Vote Number</th>
+                    <th>Question Id</th>
+                    <th>Message</th>
+                    <th>Image</th>
                 </tr>
             </thead>
             <tbody>
@@ -63,13 +64,14 @@
                     <td>{{answer_row.image}}</td>
                 </tr>
                 {% endfor %}
+              {% else %}
+                <strong>There is no answer to this question yet.</strong>
+              {% endif %}
             </tbody>
         </table>
 
     </div>
-     <div>
-        <p><strong>There is no answer to this question yet.</strong></p>
-    </div>
+
     <div>
         <p><a href="/question/{{ question_id }}/add-new-answer">Click to add an answer.</a></p>
     </div>
