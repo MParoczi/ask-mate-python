@@ -13,4 +13,5 @@ app.js (bundled file with webpack, including jquery)",images/image1.png
 
 This is the code I'm using to draw the image (that works on web/desktop but not cordova built ios app)",
 3,1563886715,6,None,Hello,Hello Bello,None
-4,1563957251,17,None,Hello Bello,Hali szia hello,None
+4,1563957251,5,None,Hello Bello,Hali szia hello,None
+5,1563958550,0,None,Test of new function,It it does work I would be really happy!,None

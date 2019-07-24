@@ -4,6 +4,10 @@ import data_manager
 
 import connection
 
+
+from util import question_header, question_file_name, answer_header, answer_file_name
+
+
 app = Flask(__name__)
 
 
@@ -17,29 +21,34 @@ def route_list():
 
 @app.route('/question/<question_id>', methods=['GET', 'POST'])
 def route_question(question_id):
-    data_manager.count_views_question(question_id)
 
     if request.method == 'GET':
+        data_manager.count_views_question(question_id)
 
-        row = data_manager.get_data_by_key('sample_data/question.csv', question_id, 'id')
-        answers = data_manager.get_data_by_key('sample_data/answer.csv', question_id, 'question_id')
+        row = data_manager.get_data_by_key(question_file_name, question_id, 'id')
+        answers = data_manager.get_data_by_key(answer_file_name, question_id, 'question_id')
         return render_template('display_question.html', question=row, answers=answers, question_id=question_id)
     else:
-        id = data_manager.create_new_id('sample_data/answer.csv')
+        id = data_manager.create_new_id(answer_file_name)
         submission_time = data_manager.add_submission_time()
         data = {'message': request.form.get('message'),
                 'question_id': question_id,
                 'id': id,
                 'submission_time': submission_time}
-        connection.append_data('sample_data/answer.csv', data)
+        connection.append_data(answer_file_name, data, answer_header)
 
-        row = data_manager.get_data_by_key('sample_data/question.csv', question_id, 'id')
-        answers = data_manager.get_data_by_key('sample_data/answer.csv', question_id, 'question_id')
+        row = data_manager.get_data_by_key(question_file_name, question_id, 'id')
+        answers = data_manager.get_data_by_key(answer_file_name, question_id, 'question_id')
         return render_template('display_question.html', question=row, answers=answers)
 
 
 @app.route('/add-question', methods=['GET', 'POST'])
 def add_question():
+    if request.method == 'POST':
+        data_manager.make_new_question(request.form)
+
+        return redirect('/')
+
     return render_template('add_question.html')
 
 

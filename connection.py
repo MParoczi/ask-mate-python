@@ -1,10 +1,6 @@
 import csv
 
 
-answer_header = ['id','submission_time','vote_number','question_id','message','image']
-
-
-
 def read_file(file_name):
     with open(file_name, 'r') as csv_file:
         reader = csv.DictReader(csv_file)
@@ -20,9 +16,9 @@ def write_file(file_name, data, header):
         writer.writerows(data)
 
 
-def append_data(file_name, dict_to_append):
+def append_data(file_name, dict_to_append, header):
     data = read_file(file_name)
 
     data.append(dict_to_append)
-    
-    write_file(file_name, data, answer_header)
+
+    write_file(file_name, data, header)

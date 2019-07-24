@@ -5,7 +5,9 @@
 </head>
 <body>
 <form action="/question/{{ question_id }}" method="post">
-    <textarea id="message" name="message" minlength="10">Your Answer:</textarea>
+    <label for="message">Your Answer:</label>
+    <br>
+    <textarea id="message" name="message" minlength="10" cols="80" rows="10"></textarea>
     <br>
     <input type="submit" value="Submit Your Answer">
 </form>
