@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Question Edit</title>
+</head>
+<body>
+    <form action="/question/{{ question_id }}/edit" method="post">
+      <p>
+        <label for="id">Id</label>
+        <br>
+        <input id="id" name="id" value="{{ row.id }}" readonly="readonly">
+      </p>
+      <p>
+        <label for="submission_time">Submission Time</label>
+        <br>
+        <input id="submission_time" name="submission_time" value="{{ row.submission_time }}" readonly="readonly">
+      </p>
+      <p>
+         <label for="view_number">View Number</label>
+        <br>
+        <input id="view_number" name="view_number" value="{{ row.view_number }}" readonly="readonly">
+      </p>
+      <p>
+         <label for="vote_number">Vote Number</label>
+        <br>
+        <input id="vote_number" name="vote_number" value="{{ row.vote_number }}" readonly="readonly">
+      </p>
+      <p>
+        <label for="title">Title</label>
+        <br>
+        <input id="title" name="title" type="text" value="{{ row.title }}">
+      </p>
+      <p>
+        <label for="message">Message</label>
+        <br>
+          <textarea id="message" name="message" type="text" minlength="10" cols="10" rows="80">{{ row.message }}</textarea>
+      </p>
+      <p>
+          <label for="image">Image Url</label>
+          <input id="image" name="image" type="url">
+      </p>
+      <p>
+          <input type="submit" value="Submit Edited Question">
+      </p>
+    </form>
+</body>
+</html>
