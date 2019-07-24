@@ -5,7 +5,7 @@ import calendar
 import time
 from datetime import datetime
 
-from util import question_file_name, question_header
+from util import question_file_name, question_header,answer_file_name, answer_header
 
 
 def get_data_by_key(file_name, searching_key, key_to_search):
@@ -54,6 +54,14 @@ def make_new_question(request_function):
 
     connection.append_data(question_file_name, new_question, question_header)
 
+def make_new_answer(request_function, question_id):
+    id = create_new_id(answer_file_name)
+    submission_time = add_submission_time()
+    data = {'message': request_function.get('message'),
+            'question_id': question_id,
+            'id': id,
+            'submission_time': submission_time}
+    connection.append_data(answer_file_name, data, answer_header)
 
 def convert_unix_to_human_time(data_from_csv):
     data = data_from_csv

@@ -29,17 +29,11 @@ def route_question(question_id):
         answers = data_manager.get_data_by_key(answer_file_name, question_id, 'question_id')
         return render_template('display_question.html', question=row, answers=answers, question_id=question_id)
     else:
-        id = data_manager.create_new_id(answer_file_name)
-        submission_time = data_manager.add_submission_time()
-        data = {'message': request.form.get('message'),
-                'question_id': question_id,
-                'id': id,
-                'submission_time': submission_time}
-        connection.append_data(answer_file_name, data, answer_header)
+        data_manager.make_new_answer(request.form, question_id)
 
         row = data_manager.get_data_by_key(question_file_name, question_id, 'id')
         answers = data_manager.get_data_by_key(answer_file_name, question_id, 'question_id')
-        return render_template('display_question.html', question=row, answers=answers)
+        return render_template('display_question.html', question=row, answers=answers, question_id=question_id)
 
 
 @app.route('/add-question', methods=['GET', 'POST'])
