@@ -78,13 +78,23 @@
     </div>
     <div>
         <p><a href="/question/{{ question_id }}/edit">Click to edit the Question's details.</a></p>
-    </div>
-    <div>
-        <p><a href="/list">Click to go back to the List of Questions.</a></p>
+        <p>
+            <form action="/question/{{ question_id }}/add-new-answer" method="GET">
+                <button type="submit">Click to add an answer</button>
+            </form>
+
+        </p>
     </div>
     <div>
         <p>
-            <form action="">
+            <form action="/list" method="GET">
+                    <button type="submit">Go back to list of questions</button>
+            </form>
+        </p>
+    </div>
+    <div>
+        <p>
+            <form action="/question/{{ question_id }}/delete" method="POST">
                 <button type="submit">Delete question</button>
             </form>
         </p>
