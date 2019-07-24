@@ -54,6 +54,7 @@ def make_new_question(request_function):
 
     connection.append_data(question_file_name, new_question, question_header)
 
+
 def make_new_answer(request_function, question_id):
     id = create_new_id(answer_file_name)
     submission_time = add_submission_time()
@@ -63,6 +64,7 @@ def make_new_answer(request_function, question_id):
             'submission_time': submission_time}
     connection.append_data(answer_file_name, data, answer_header)
 
+
 def convert_unix_to_human_time(data_from_csv):
     data = data_from_csv
     rows = []
@@ -70,4 +72,27 @@ def convert_unix_to_human_time(data_from_csv):
         question['submission_time'] = datetime.fromtimestamp(int(question['submission_time']))
         rows.append(question)
     return rows
+
+
+def delete_question_by_id(question_id):
+    q_data = connection.read_file(question_file_name)
+    rows = []
+    for row in q_data:
+        if question_id == row['id']:
+            pass
+        else:
+            rows.append(row)
+
+    connection.write_file(question_file_name, rows, question_header)
+
+    a_data = connection.read_file(answer_file_name)
+    rows = []
+    for row in a_data:
+        if question_id == row['question_id']:
+            pass
+        else:
+            rows.append(row)
+
+    connection.write_file(answer_file_name, rows, answer_header)
+
 
