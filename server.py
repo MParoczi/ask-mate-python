@@ -53,7 +53,8 @@ def route_new_answer(question_id):
 @app.route('/question/<question_id>/delete', methods=['GET', 'POST'])
 def delete_question(question_id):
     if request.method == 'POST':
-        data_manager.delete_question_by_id(question_id)
+        data_manager.delete_question_by_id(question_id, 'id', question_header, question_file_name)
+        data_manager.delete_question_by_id(question_id, 'question_id', answer_header, answer_file_name)
 
         return redirect('/list')
 
@@ -61,7 +62,7 @@ def delete_question(question_id):
 @app.route('/question/<question_id>/edit', methods=['GET', 'POST'])
 def route_question_edit(question_id):
     if request.method == 'GET':
-        row = data_manager.get_data_by_key(question_file_name, question_id, 'id')
+        row = data_manager.convert_unix_to_human_time(data_manager.get_data_by_key(question_file_name, question_id, 'id'))
         return render_template('question_edit.html', rows=row, question_id=question_id)
     else:
         data_manager.edit_question(request.form, question_id)

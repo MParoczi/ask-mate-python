@@ -98,25 +98,16 @@ def edit_question(request_function, question_id):
     connection.write_file(question_file_name, data_to_modify, question_header)
 
 
-def delete_question_by_id(question_id):
-    q_data = connection.read_file(question_file_name)
+def delete_question_by_id(question_id, key, header, file_name):
+    data = connection.read_file(file_name)
     rows = []
-    for row in q_data:
-        if question_id == row['id']:
+    for row in data:
+        if question_id == row[key]:
             pass
         else:
             rows.append(row)
 
-    connection.write_file(question_file_name, rows, question_header)
+    connection.write_file(file_name, rows, header)
 
-    a_data = connection.read_file(answer_file_name)
-    rows = []
-    for row in a_data:
-        if question_id == row['question_id']:
-            pass
-        else:
-            rows.append(row)
-
-    connection.write_file(answer_file_name, rows, answer_header)
 
 
