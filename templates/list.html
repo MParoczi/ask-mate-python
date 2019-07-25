@@ -6,7 +6,36 @@
     <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
 <body>
-    <table>
+<table>
+    <form method="GET" action="/list">
+    <tr>
+        <th><label for="order_by">Order by:</label><br></th>
+        <th><label for="order_direction">Order direction:</label><br></th>
+    </tr>
+
+
+            <td>
+            <select name="order_by" id="order_by">
+                {% for header in question_header %}
+                    <option value="{{ header }}">{{ header }}</option>
+                {% endfor %}
+            </select>
+            </td>
+
+
+            <td>
+            <select name="order_direction" id="order_direction">
+                {% for direction in order_directions %}
+                    <option value="{{ direction }}">{{ direction }}</option>
+                {% endfor %}
+            </select>
+            </td>
+            <td>
+            <button type="submit">Ok</button>
+            </td>
+    </form>
+</table>
+<table>
         <tr>
         <th>Id</th>
         <th>Submission time</th>
