@@ -46,14 +46,13 @@ def count_views_question(question_id):
 
 def make_new_question(request_function):
     INITIAL_VALUE = 0
-    new_question = {}
-
-    new_question['id'] = create_new_id(question_file_name)
-    new_question['submission_time'] = add_submission_time()
-    new_question['view_number'] = INITIAL_VALUE
-    new_question['vote_number'] = INITIAL_VALUE
-    new_question['title'] = request_function['question_title']
-    new_question['message'] = request_function['question']
+    new_question = {'id' : create_new_id(question_file_name),
+                    'submission_time': add_submission_time(),
+                    'view_number' : INITIAL_VALUE,
+                    'vote_number' : INITIAL_VALUE,
+                    'title' : request_function.get('question_title'),
+                    'message' : request_function.get('question'),
+                    'image' : request_function.get('image')}
 
 
     connection.append_data(question_file_name, new_question, question_header)
@@ -84,7 +83,6 @@ def convert_unix_to_human_time(data_from_csv):
 def edit_question(request_function, question_id):
 
     data = {'id': question_id,
-            'submission_time': request_function.get('submission_time'),
             'view_number': request_function.get('view_number'),
             'vote_number': request_function.get('vote_number'),
             'title': request_function.get('title'),
@@ -122,5 +120,7 @@ def ordering_dict(title, direction, dict_to_order):
     new_list = sorted(dict_to_order, key=itemgetter(title), reverse=rev)
 
     return new_list
+
+
 
 
