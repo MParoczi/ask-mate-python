@@ -72,12 +72,27 @@
         </table>
 
     </div>
-
     <div>
-        <p><a href="/question/{{ question_id }}/add-new-answer">Click to add an answer.</a></p>
+        <p>
+            <form action="/question/{{ question_id }}/add-new-answer" method="GET">
+                <button type="submit">Click to add an answer</button>
+            </form>
+
+        </p>
+    </div>
+     <div>
+        <p>
+            <form action="/question/{{ question_id }}/edit" method="get">
+                    <button type="submit">Edit the Question</button>
+            </form>
+        </p>
     </div>
     <div>
-        <p><a href="/list">Click to go back to the List of Questions.</a></p>
+        <p>
+            <form action="/list" method="GET">
+                    <button type="submit">Go back to list of questions</button>
+            </form>
+        </p>
     </div>
     <div>
         <p>
