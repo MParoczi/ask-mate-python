@@ -1,16 +1,5 @@
 id,submission_time,vote_number,question_id,message,image
 0,1493398154,4,0,You need to use brackets: my_list = [],
 1,1493088154,35,0,Look it up in the Python docs,
-2,1563882894,None,0,kis kacsa furdik,None
-3,1563883717,None,2,Hello Hello,None
-4,1563886800,None,3,Szia Szia Hello Bello ,None
-5,1563957265,None,4,Szevasz hello,None
-6,1563957634,None,0,Csacsacsacsa,None
-7,1563959333,None,4,Jo reggelt Vietnam!,None
-8,1563959635,None,6,uj valasz megintcsak,None
-9,1563959699,None,6,today is English day,None
-10,1563959762,None,6,test this answer function,None
-11,1564000949,0,3,Adding an answer to test it.,
-12,1564001036,0,7,new answer to test,
-13,1564001073,0,6,let's try giving new answer,
-14,1564001918,0,7,python is case sensitive,
+2,1564057796,0,3,"Git is a version control system for distributed, non-linear workflows.
+Github is a code-hosting platfrom for git and other version control system.",
