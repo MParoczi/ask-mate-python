@@ -24,12 +24,12 @@
       <p>
         <label for="title">Title</label>
         <br>
-        <input id="title" name="title" type="text" value="{{ row.title }}">
+        <input id="title" name="title" type="text" value="{{ row.title }}" required>
       </p>
       <p>
         <label for="message">Message</label>
         <br>
-          <textarea id="message" name="message" minlength="10" cols="10" rows="20">{{ row.message }}</textarea>
+          <textarea id="message" name="message" minlength="10" cols="80" rows="10" required>{{ row.message }}</textarea>
       </p>
       <p>
           <label for="image">Image Url</label>
