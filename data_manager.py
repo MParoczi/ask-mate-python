@@ -4,6 +4,8 @@ import calendar
 
 import time
 from datetime import datetime
+from operator import itemgetter
+from collections import OrderedDict
 
 from util import question_file_name, question_header,answer_file_name, answer_header
 
@@ -94,5 +96,16 @@ def delete_question_by_id(question_id):
             rows.append(row)
 
     connection.write_file(answer_file_name, rows, answer_header)
+
+
+def ordering_dict(title, direction, dict_to_order):
+    rev = False
+    if direction == 'descending':
+        rev = True
+    if title == None:
+        title = 'submission_time'
+    new_list = sorted(dict_to_order, key=itemgetter(title), reverse=rev)
+
+    return new_list
 
 
