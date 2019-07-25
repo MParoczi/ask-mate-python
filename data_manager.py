@@ -5,7 +5,6 @@ import calendar
 import time
 from datetime import datetime
 from operator import itemgetter
-from collections import OrderedDict
 
 from util import question_file_name, question_header,answer_file_name, answer_header
 
@@ -113,11 +112,18 @@ def delete_question_by_id(question_id, key, header, file_name):
 
 def ordering_dict(title, direction, dict_to_order):
     rev = False
+    list_of_dict = []
+    for dict in dict_to_order:
+        for element in dict:
+            if element == 'id' or  element == 'view_number' or element == 'vote_number':
+                dict[element] = int(dict[element])
+        list_of_dict.append(dict)
     if direction == 'descending':
         rev = True
-    if title == None:
+    if title is None:
         title = 'submission_time'
-    new_list = sorted(dict_to_order, key=itemgetter(title), reverse=rev)
+
+    new_list = sorted(list_of_dict, key=itemgetter(title), reverse=rev)
 
     return new_list
 

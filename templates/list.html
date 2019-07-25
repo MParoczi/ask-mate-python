@@ -8,12 +8,15 @@
 <body>
 <table>
     <form method="GET" action="/list">
-    <tr>
-        <th><label for="order_by">Order by:</label><br></th>
-        <th><label for="order_direction">Order direction:</label><br></th>
-    </tr>
+        <tr>
+            <td><label for="order_by">Order by:</label><br></td>
+            <td><label for="order_direction">Order direction:</label><br></td>
+            <td rowspan="2">
+            <button type="submit">Ok</button>
+            </td>
+        </tr>
 
-
+        <tr>
             <td>
             <select name="order_by" id="order_by">
                 {% for header in question_header %}
@@ -30,9 +33,7 @@
                 {% endfor %}
             </select>
             </td>
-            <td>
-            <button type="submit">Ok</button>
-            </td>
+        </tr>
     </form>
 </table>
 <table>

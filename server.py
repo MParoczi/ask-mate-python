@@ -19,7 +19,7 @@ def route_list():
     order_by = request.args.get('order_by')
     order_direction = request.args.get('order_direction')
     result = data_manager.ordering_dict(order_by, order_direction, questions)
-    return render_template('list.html', questions=result, question_header=question_header, order_directions=order_directions)
+    return render_template('list.html', questions=result, question_header=question_header, order_directions=order_directions, order_by=order_by, order_direction=order_direction)
 
 
 @app.route('/question/<question_id>', methods=['GET', 'POST'])
