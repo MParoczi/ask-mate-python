@@ -111,15 +111,15 @@ def delete_question_by_id(question_id, key, header, file_name):
 
 
 def ordering_dict(title, direction, dict_to_order):
-    rev = False
+    rev = True
     list_of_dict = []
     for dict in dict_to_order:
         for element in dict:
             if element == 'id' or  element == 'view_number' or element == 'vote_number':
                 dict[element] = int(dict[element])
         list_of_dict.append(dict)
-    if direction == 'descending':
-        rev = True
+    if direction == 'ascending':
+        rev = False
     if title is None:
         title = 'submission_time'
 
