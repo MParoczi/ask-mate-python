@@ -1,13 +1,32 @@
 <!DOCTYPE html>
 <html>
+
+
 <head>
     <title>Display Question</title>
     <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
 <body>
-    <div>
-        <p><strong>Question Details:</strong></p>
+<div class="container">
+    <div class="sidebar">
+        <h3>Menu</h3>
+        <ul>
+            <li><form action="/list" method="GET">
+                    <button type="submit">Home</button></form>
+            </li>
+            <li><form action="/question/{{ question_id }}/add-new-answer" method="GET">
+                <button type="submit">Add an answer</button></form>
+            </li>
+            <li><form action="/question/{{ question_id }}/edit" method="get">
+                    <button type="submit">Edit question</button></form>
+            </li>
+            <li><form action="/question/{{ question_id }}/delete" method="POST">
+                <button type="submit">Delete question</button>
+            </form></li>
+        </ul>
     </div>
+    <div class="content">
+        <p><strong>Question Details:</strong></p>
     <div>
     <table>
          <thead>
@@ -70,38 +89,9 @@
               {% endif %}
             </tbody>
         </table>
+    </div>
+    </div>
+</div>
 
-    </div>
-    <div>
-        <p>
-            <form action="/question/{{ question_id }}/add-new-answer" method="GET">
-                <button type="submit">Click to add an answer</button>
-            </form>
-
-        </p>
-    </div>
-     <div>
-        <p>
-            <form action="/question/{{ question_id }}/edit" method="get">
-                    <button type="submit">Edit the question</button>
-            </form>
-        </p>
-    </div>
-    <div>
-        <p>
-            <form action="/question/{{ question_id }}/delete" method="POST">
-                <button type="submit">Delete question</button>
-            </form>
-        </p>
-    </div>
-    <div>
-        <p>
-            <form action="/list" method="GET">
-                    <button type="submit">Go back to list of questions</button>
-            </form>
-        </p>
-    </div>
-
-</body>
 </body>
 </html>

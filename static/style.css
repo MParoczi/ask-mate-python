@@ -9,3 +9,32 @@ table {
 table, th, td {
   border: 2px solid black;
 }
+
+.container{
+  display: grid;
+
+}
+
+.sidebar{
+  grid-column-start: 1;
+  grid-column-end: three;
+  grid-row-start: row1-start;
+  grid-row-end: 3;
+}
+
+.content{
+  margin-left: 20px;
+  margin-right: 20px;
+  grid-column-start: 4;
+  grid-column-end: twelve;
+  grid-row-start: row1-start;
+  grid-row-end: last-line;
+}
+
+li{
+  display: block;
+}
+
+h3{
+  text-align: center;
+}
