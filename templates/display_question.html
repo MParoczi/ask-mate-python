@@ -68,13 +68,12 @@
                 {% for comment in comments %}
                     {% if comment.answer_id == answer_row.id %}
                 <p>{{ comment.message }}</p>
-
+                    {% endif %}
+                {% endfor %}
                 <form action="/answer/{{ answer_row.id }}/new-comment" method="POST">
-                    <textarea cols="20" rows="3">Your comment</textarea>
+                    <textarea name="new_comment"cols="20" rows="3">Your comment</textarea>
                     <button type="submit">Submit</button>
                 </form>
-                {% endif %}
-                {% endfor %}
             </details>
         {% endfor %}
     </div>

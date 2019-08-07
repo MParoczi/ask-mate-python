@@ -93,5 +93,13 @@ def route_edit_answer(answer_id):
         data_manager.edit_answer(request.form, answer_id)
         return redirect('/')
 
+
+@app.route('/answer/<answer_id>/new-comment', methods=['GET', 'POST'])
+def route_new_comment_for_answer(answer_id):
+    if request.method == 'POST':
+        data_manager.add_new_comment_to_answer(request.form, answer_id)
+        return redirect('/')
+
+
 if __name__ == '__main__':
     app.run(debug=True)
