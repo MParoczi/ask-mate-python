@@ -11,29 +11,17 @@ from psycopg2 import sql
 from util import question_file_name, question_header,answer_file_name, answer_header
 
 
+
 @database_common.connection_handler
-def get_question_by_id(cursor, question_id):
+def get_data_by_key(cursor, key, data_id, table):
     cursor.execute(
-            """SELECT * FROM question
-                WHERE id = %(question_id)s;
-            """,
-            {'question_id': question_id}
+        sql.SQL("select * from {} "
+                "where {} = (%s) ").
+            format(sql.Identifier(table), sql.Identifier(key)),
+            data_id
         )
     row_dict = cursor.fetchall()
     return row_dict
-
-
-@database_common.connection_handler
-def get_answers_by_question_id(cursor, question_id):
-    cursor.execute(
-            """SELECT * FROM answer
-                WHERE question_id = %(question_id)s;
-            """,
-            {'question_id': question_id}
-        )
-    row_dict = cursor.fetchall()
-    return row_dict
-
 
 
 def add_submission_time():
@@ -41,6 +29,7 @@ def add_submission_time():
     return submission_time
 
 
+#altalanosabban? vote_number re is! mint question/answer table es melyik col
 @database_common.connection_handler
 def count_views_question(cursor, question_id):
     cursor.execute(
@@ -66,7 +55,7 @@ def make_new_question(request_function):
     connection.append_data(question_file_name, new_question, question_header)
 
 
-
+#not working as sqlIdentifier cant take function but only string
 @database_common.connection_handler
 def insert_new_answer(cursor, request_function, question_id):
     cursor.execute(
@@ -108,6 +97,18 @@ def edit_question(request_function, question_id):
 
     connection.write_file(question_file_name, data_to_modify, question_header)
 
+"""
+def delete_question_by_id(question_id, key, header, file_name):
+    data = connection.read_file(file_name)
+    rows = []
+    for row in data:
+        if question_id == row[key]:
+            pass
+        else:
+            rows.append(row)
+
+    connection.write_file(file_name, rows, header)
+"""
 
 @database_common.connection_handler
 def delete_question_by_id(cursor, question_id):

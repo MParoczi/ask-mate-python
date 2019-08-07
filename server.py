@@ -21,7 +21,7 @@ def route_list():
     #order_direction = request.args.get('order_direction')
     #result = data_manager.ordering_dict(order_by, order_direction, questions)
 
-
+    #!!! alapbol kiirta a normalis submission timet, why?
     return render_template('list.html', questions=data, question_header=question_header)
 
 @app.route('/list-database')
@@ -29,7 +29,7 @@ def route_list_database():
     data = data_manager.get_all_data('question')
     return render_template('list_database.html', data=data)
 
-@app.route('/question/<string:question_id>', methods=['GET', 'POST'])
+@app.route('/question/<question_id>', methods=['GET', 'POST'])
 def route_question(question_id):
 
     if request.method == 'GET':
@@ -37,11 +37,16 @@ def route_question(question_id):
     else:
         data_manager.insert_new_answer(request.form, question_id)
 
+    #row = data_manager.convert_unix_to_human_time(data_manager.get_data_by_key(question_file_name, question_id, 'id'))
+    #answers = data_manager.convert_unix_to_human_time(data_manager.get_data_by_key(answer_file_name, question_id, 'question_id'))
+    """
     row = data_manager.get_question_by_id(question_id)
     answers = data_manager.get_answers_by_question_id(question_id)
+    """
 
+    row=data_manager.get_data_by_key('id', question_id, 'question')
+    answers=data_manager.get_data_by_key('question_id', question_id, 'answer')
     return render_template('display_question.html', question=row, answers=answers, question_id=question_id)
-
 
 @app.route('/add-question', methods=['GET', 'POST'])
 def add_question():
