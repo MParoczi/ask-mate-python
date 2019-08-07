@@ -5,7 +5,7 @@ import data_manager
 import connection
 
 
-from util import question_header, question_file_name, answer_header, answer_file_name, order_directions
+from util import question_header, question_file_name, answer_header, answer_file_name, order_directions, order_parameter
 
 
 app = Flask(__name__)
@@ -15,14 +15,18 @@ app = Flask(__name__)
 @app.route('/list')
 def route_list():
     data = data_manager.get_all_data('question')
+    order_by = request.args.get('order_by')
+    order_direction = request.args.get('order_direction')
+    result = data_manager.ordering_dict(order_by, order_direction, data)
 
-    #questions = data_manager.convert_unix_to_human_time(questions)
-    #order_by = request.args.get('order_by')
-    #order_direction = request.args.get('order_direction')
-    #result = data_manager.ordering_dict(order_by, order_direction, questions)
-
-
-    return render_template('list.html', questions=data, question_header=question_header)
+    return render_template('list.html',
+                           questions=result,
+                           question_header=question_header,
+                           order_directions=order_directions,
+                           order_by=order_by,
+                           order_direction=order_direction,
+                           order_parameter=order_parameter,
+                           )
 
 @app.route('/list-database')
 def route_list_database():
