@@ -19,7 +19,7 @@ def get_data_by_key(cursor, key, data_id, table):
 
 
 def add_submission_time():
-    submission_time = datetime.now()
+    submission_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     return submission_time
 
 
