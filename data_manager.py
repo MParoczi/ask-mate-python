@@ -41,6 +41,7 @@ def count_views_question(cursor, question_id):
         )
 
 
+"""
 def make_new_question(request_function):
     INITIAL_VALUE = 0
     new_question = {'id' : create_new_id(question_file_name),
@@ -53,9 +54,28 @@ def make_new_question(request_function):
 
 
     connection.append_data(question_file_name, new_question, question_header)
+"""
 
 
-#not working as sqlIdentifier cant take function but only string
+@database_common.connection_handler
+def make_new_question(cursor, request_function):
+    cursor.execute(
+        sql.SQL(
+            """
+            INSERT INTO question (submission_time, view_number, vote_number, title, message, image) 
+            VALUES (%s, %s, %s, %s, %s, %s)
+            """
+                ), [add_submission_time(),
+                    0,
+                    0,
+                    request_function.get('question_title'),
+                    request_function.get('question'),
+                    request_function.get('image')]
+
+                )
+
+
+# not working as sqlIdentifier cant take function but only string
 @database_common.connection_handler
 def insert_new_answer(cursor, request_function, question_id):
     cursor.execute(
