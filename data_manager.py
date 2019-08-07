@@ -4,9 +4,7 @@ from datetime import datetime
 from operator import itemgetter
 from psycopg2 import sql
 
-
 from util import question_file_name, question_header, answer_header
-
 
 
 @database_common.connection_handler
@@ -15,8 +13,8 @@ def get_data_by_key(cursor, key, data_id, table):
         sql.SQL("select * from {table} "
                 "where {key} = (%s) ").
             format(table=sql.Identifier(table), key=sql.Identifier(key)),
-            data_id
-        )
+        data_id
+    )
     row_dict = cursor.fetchall()
     return row_dict
 
@@ -45,41 +43,52 @@ def make_new_question(cursor, request_function):
             INSERT INTO question (submission_time, view_number, vote_number, title, message, image) 
             VALUES (%s, %s, %s, %s, %s, %s)
             """
-                ), [add_submission_time(),
-                    0,
-                    0,
-                    request_function.get('question_title'),
-                    request_function.get('question'),
-                    request_function.get('image')]
+        ), [add_submission_time(),
+            0,
+            0,
+            request_function.get('question_title'),
+            request_function.get('question'),
+            request_function.get('image')]
 
-                )
-
+    )
 
 
 @database_common.connection_handler
 def insert_new_answer(cursor, request_function, question_id):
     cursor.execute(
-        sql.SQL("insert into answer (submission_time, vote_number, question_id, message, image) values ( %s, %s, %s, %s, %s ) ").format(),
-            [add_submission_time(), 0, question_id, request_function.get('message'), request_function.get('image')]
-        )
+        sql.SQL(
+            "insert into answer (submission_time, vote_number, question_id, message, image) values ( %s, %s, %s, %s, %s ) ").format(),
+        [add_submission_time(), 0, question_id, request_function.get('message'), request_function.get('image')]
+    )
 
 
-def edit_question(request_function, question_id):
+@database_common.connection_handler
+def edit_question(cursor, request_function, question_id):
+    view_number = request_function.get('view_number')
+    vote_number = request_function.get('vote_number')
+    title = request_function.get('title')
+    message = request_function.get('message')
+    image = request_function.get('image')
 
-    data = {'id': question_id,
-            'view_number': request_function.get('view_number'),
-            'vote_number': request_function.get('vote_number'),
-            'title': request_function.get('title'),
-            'message': request_function.get('message'),
-            'image': request_function.get('image')}
 
-    data_to_modify = connection.read_file(question_file_name)
-
-    for row in data_to_modify:
-        if row['id'] == data['id']:
-            row.update(data)
-
-    connection.write_file(question_file_name, data_to_modify, question_header)
+    cursor.execute(
+        """UPDATE question 
+           SET view_number = %(view_number)s,
+            vote_number = %(vote_number)s,
+             title = %(title)s,
+              message = %(message)s,
+              image = %(image)s
+              
+           WHERE id = %(question_id)s;
+        """,
+        {'question_id': question_id,
+         'view_number': view_number,
+         'vote_number': vote_number,
+         'title': title,
+         'message': message,
+         'image': image,
+         }
+    )
 
 
 @database_common.connection_handler

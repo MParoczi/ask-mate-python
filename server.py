@@ -81,7 +81,7 @@ def delete_question(question_id):
 @app.route('/question/<question_id>/edit', methods=['GET', 'POST'])
 def route_question_edit(question_id):
     if request.method == 'GET':
-        row = data_manager.get_data_by_key(question_file_name, question_id, 'id')
+        row = data_manager.get_data_by_key('id', question_id, 'question')
         return render_template('question_edit.html', rows=row, question_id=question_id)
     else:
         data_manager.edit_question(request.form, question_id)
