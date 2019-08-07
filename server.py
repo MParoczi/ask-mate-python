@@ -12,6 +12,12 @@ app = Flask(__name__)
 
 
 @app.route('/')
+@app.route('/latest_five_question')
+def route_list_of_first_five_question():
+    questions = data_manager.get_latest_five_question()
+
+    return render_template('list_of_first_five.html', questions=questions)
+
 @app.route('/list')
 def route_list():
     data = data_manager.get_all_data('question')
