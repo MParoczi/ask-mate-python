@@ -33,23 +33,23 @@ def add_submission_time():
 @database_common.connection_handler
 def count_views_question(cursor, question_id):
     cursor.execute(
-            """ UPDATE question
-                SET view_number= view_number + 1
-                WHERE id = %(question_id)s;
-            """,
+        """ UPDATE question
+            SET view_number= view_number + 1
+            WHERE id = %(question_id)s;
+        """,
         {'question_id': question_id}
-        )
+    )
 
 
 def make_new_question(request_function):
     INITIAL_VALUE = 0
-    new_question = {'id' : create_new_id(question_file_name),
+    new_question = {'id': create_new_id(question_file_name),
                     'submission_time': add_submission_time(),
-                    'view_number' : INITIAL_VALUE,
-                    'vote_number' : INITIAL_VALUE,
-                    'title' : request_function.get('question_title'),
-                    'message' : request_function.get('question'),
-                    'image' : request_function.get('image')}
+                    'view_number': INITIAL_VALUE,
+                    'vote_number': INITIAL_VALUE,
+                    'title': request_function.get('question_title'),
+                    'message': request_function.get('question'),
+                    'image': request_function.get('image')}
 
 
     connection.append_data(question_file_name, new_question, question_header)
@@ -110,16 +110,23 @@ def ordering_dict(title, direction, dict_to_order):
     return new_list
 
 
-
 @database_common.connection_handler
 def get_all_data(cursor, table_name):
     cursor.execute(
-            sql.SQL(" select * from {table_name}").format(
-                table_name=sql.Identifier(table_name))
-            )
+        sql.SQL(" select * from {table_name}").format(
+            table_name=sql.Identifier(table_name))
+    )
 
     rows = cursor.fetchall()
     return rows
 
 
+@database_common.connection_handler
+def get_latest_five_question(cursor):
+    cursor.execute("""
+                      SELECT id, submission_time, view_number, vote_number, title, message, image FROM question
+                      ORDER BY submission_time DESC LIMIT 5;
+                """, )
 
+    data = cursor.fetchall()
+    return data
