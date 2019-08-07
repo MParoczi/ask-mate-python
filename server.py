@@ -5,7 +5,7 @@ import data_manager
 import connection
 
 
-from util import question_header, question_file_name, answer_header, answer_file_name, order_directions, order_parameter
+from util import question_header, order_directions, order_parameter
 
 
 app = Flask(__name__)

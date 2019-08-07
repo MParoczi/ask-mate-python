@@ -4,7 +4,6 @@ from datetime import datetime
 from operator import itemgetter
 from psycopg2 import sql
 
-from util import question_file_name, question_header, answer_header
 
 
 @database_common.connection_handler

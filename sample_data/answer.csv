@@ -1,5 +1,0 @@
-id,submission_time,vote_number,question_id,message,image
-0,1493398154,4,0,You need to use brackets: my_list = [],
-1,1493088154,35,0,Look it up in the Python docs,
-2,1564057796,0,3,"Git is a version control system for distributed, non-linear workflows.
-Github is a code-hosting platfrom for git and other version control system.",
