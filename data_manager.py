@@ -165,3 +165,13 @@ def edit_answer(cursor, request_function, answer_id):
          'image': image,
          }
     )
+
+
+@database_common.connection_handler
+def get_comments_of_answers(cursor):
+    cursor.execute(
+        sql.SQL("""
+                SELECT * FROM comment
+                """))
+    comments = cursor.fetchall()
+    return comments

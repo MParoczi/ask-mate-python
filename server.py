@@ -44,9 +44,10 @@ def route_question(question_id):
     else:
         data_manager.insert_new_answer(request.form, question_id)
 
-    row=data_manager.get_data_by_key('id', question_id, 'question')
-    answers=data_manager.get_data_by_key('question_id', question_id, 'answer')
-    return render_template('display_question.html', question=row, answers=answers, question_id=question_id)
+    row = data_manager.get_data_by_key('id', question_id, 'question')
+    answers = data_manager.get_data_by_key('question_id', question_id, 'answer')
+    comments = data_manager.get_comments_of_answers()
+    return render_template('display_question.html', question=row, answers=answers, question_id=question_id, comments=comments)
 
 @app.route('/add-question', methods=['GET', 'POST'])
 def add_question():
