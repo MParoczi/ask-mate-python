@@ -28,28 +28,43 @@
     <div class="content">
         <p><strong>Question Details:</strong></p>
     <div>
+    <details>
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Submission Time</th>
+                    <th>View Number</th>
+                    <th>Vote Number</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for question_row in question %}
+                <tr>
+                    <td>{{question_row.id}}</td>
+                    <td>{{question_row.submission_time}}</td>
+                    <td>{{question_row.view_number}}</td>
+                    <td>{{question_row.vote_number}}</td>
+                    <td>{{question_row.image}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </details>
+    <br>
     <table>
          <thead>
             <tr>
-                <th>Id</th>
-                <th>Submission Time</th>
-                <th>View Number</th>
-                <th>Vote Number</th>
                 <th>Title</th>
                 <th>Message</th>
-                <th>Image</th>
             </tr>
             </thead>
         <tbody>
             {% for question_row in question %}
             <tr>
-                <td>{{question_row.id}}</td>
-                <td>{{question_row.submission_time}}</td>
-                <td>{{question_row.view_number}}</td>
-                <td>{{question_row.vote_number}}</td>
                 <td>{{question_row.title}}</td>
                 <td>{{question_row.message}}</td>
-                <td>{{question_row.image}}</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -60,28 +75,41 @@
         <p><strong>Answers:</strong></p>
     </div>
     <div>
+        {% if answers %}
+    <details>
         <table>
-            {% if answers %}
             <thead>
                 <tr>
                     <th>Id</th>
                     <th>Submission Time</th>
                     <th>Vote Number</th>
                     <th>Question Id</th>
-                    <th>Message</th>
                     <th>Image</th>
                 </tr>
             </thead>
             <tbody>
-
+                {% for answer_row in answers %}
+                 <tr>
+                     <td>{{answer_row.id}}</td>
+                     <td>{{answer_row.submission_time}}</td>
+                     <td>{{answer_row.vote_number}}</td>
+                     <td>{{answer_row.question_id}}</td>
+                     <td>{{answer_row.image}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </details>
+        <table>
+            <thead>
+                <tr>
+                    <th>Message</th>
+                </tr>
+            </thead>
+            <tbody>
                 {% for answer_row in answers %}
                 <tr>
-                    <td>{{answer_row.id}}</td>
-                    <td>{{answer_row.submission_time}}</td>
-                    <td>{{answer_row.vote_number}}</td>
-                    <td>{{answer_row.question_id}}</td>
                     <td>{{answer_row.message}}</td>
-                    <td>{{answer_row.image}}</td>
                 </tr>
                 {% endfor %}
               {% else %}

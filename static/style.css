@@ -19,13 +19,13 @@ table, th, td {
   grid-column-start: 1;
   grid-column-end: three;
   grid-row-start: row1-start;
-  grid-row-end: 3;
+  grid-row-end: 2;
 }
 
 .content{
   margin-left: 20px;
   margin-right: 20px;
-  grid-column-start: 4;
+  grid-column-start: 2;
   grid-column-end: twelve;
   grid-row-start: row1-start;
   grid-row-end: last-line;
