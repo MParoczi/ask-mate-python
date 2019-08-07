@@ -25,7 +25,7 @@ def get_data_by_key(cursor, key, data_id, table):
 
 
 def add_submission_time():
-    submission_time = calendar.timegm(time.gmtime())
+    submission_time = datetime.now()
     return submission_time
 
 
