@@ -19,7 +19,7 @@
         <tr>
             <td>
             <select name="order_by" id="order_by">
-                {% for header in question_header %}
+                {% for header in order_parameter %}
                     <option value="{{ header }}">{{ header }}</option>
                 {% endfor %}
             </select>
