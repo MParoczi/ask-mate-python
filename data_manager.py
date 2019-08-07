@@ -165,3 +165,30 @@ def edit_answer(cursor, request_function, answer_id):
          'image': image,
          }
     )
+
+
+@database_common.connection_handler
+def add_comment_to_question(cursor, request_function, question_id):
+    submission_time = add_submission_time()
+    message = request_function.get('new_comment')
+
+    cursor.execute(
+        """INSERT INTO comment (question_id, message, submission_time) 
+            VALUES (%(question_id)s, %(message)s, %(submission_time)s)
+        """,
+        {
+            'question_id': question_id,
+            'submission_time': submission_time,
+            'message': message,
+        }
+    )
+@database_common.connection_handler
+def get_comments_by_question_id(cursor, question_id):
+    cursor.execute(
+        """SELECT id, question_id, answer_id, message, submission_time, edited_count FROM comment
+            WHERE question_id = %(question_id)s
+        """,
+        {'question_id':question_id}
+    )
+    comments = cursor.fetchall()
+    return comments
