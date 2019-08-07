@@ -12,6 +12,12 @@ app = Flask(__name__)
 
 
 @app.route('/')
+@app.route('/latest_five_question')
+def route_list_of_first_five_question():
+    questions = data_manager.get_latest_five_question()
+
+    return render_template('list_of_first_five.html', questions=questions)
+
 @app.route('/list')
 def route_list():
     data = data_manager.get_all_data('question')
@@ -40,13 +46,6 @@ def route_question(question_id):
         data_manager.count_views_question(question_id)
     else:
         data_manager.insert_new_answer(request.form, question_id)
-
-    #row = data_manager.convert_unix_to_human_time(data_manager.get_data_by_key(question_file_name, question_id, 'id'))
-    #answers = data_manager.convert_unix_to_human_time(data_manager.get_data_by_key(answer_file_name, question_id, 'question_id'))
-    """
-    row = data_manager.get_question_by_id(question_id)
-    answers = data_manager.get_answers_by_question_id(question_id)
-    """
 
     row=data_manager.get_data_by_key('id', question_id, 'question')
     answers=data_manager.get_data_by_key('question_id', question_id, 'answer')
@@ -82,7 +81,7 @@ def delete_question(question_id):
 @app.route('/question/<question_id>/edit', methods=['GET', 'POST'])
 def route_question_edit(question_id):
     if request.method == 'GET':
-        row = data_manager.convert_unix_to_human_time(data_manager.get_data_by_key(question_file_name, question_id, 'id'))
+        row = data_manager.get_data_by_key(question_file_name, question_id, 'id')
         return render_template('question_edit.html', rows=row, question_id=question_id)
     else:
         data_manager.edit_question(request.form, question_id)
