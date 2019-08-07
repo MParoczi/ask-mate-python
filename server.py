@@ -2,9 +2,6 @@ from flask import Flask, render_template, request, redirect, url_for
 
 import data_manager
 
-import connection
-
-
 from util import question_header, order_directions, order_parameter
 
 

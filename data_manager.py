@@ -1,7 +1,9 @@
-import connection
 import database_common
+
 from datetime import datetime
+
 from operator import itemgetter
+
 from psycopg2 import sql
 
 
