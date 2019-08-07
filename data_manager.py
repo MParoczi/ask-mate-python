@@ -94,7 +94,9 @@ def edit_question(cursor, request_function, question_id):
 @database_common.connection_handler
 def delete_question_by_id(cursor, question_id):
     cursor.execute(
-        """DELETE FROM question
+        """DELETE FROM answer
+            WHERE question_id = %(question_id)s;
+            DELETE FROM question
             WHERE id = %(question_id)s;
         """,
         {'question_id': question_id}
