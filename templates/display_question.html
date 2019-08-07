@@ -60,35 +60,14 @@
         <p><strong>Answers:</strong></p>
     </div>
     <div>
-        <table>
-            {% if answers %}
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Submission Time</th>
-                    <th>Vote Number</th>
-                    <th>Question Id</th>
-                    <th>Message</th>
-                    <th>Image</th>
-                </tr>
-            </thead>
-            <tbody>
-
-                {% for answer_row in answers %}
-                <tr>
-                    <td>{{answer_row.id}}</td>
-                    <td>{{answer_row.submission_time}}</td>
-                    <td>{{answer_row.vote_number}}</td>
-                    <td>{{answer_row.question_id}}</td>
-                    <td>{{answer_row.message}}</td>
-                    <td>{{answer_row.image}}</td>
-                </tr>
-                {% endfor %}
-              {% else %}
-                <strong>There is no answer to this question yet.</strong>
-              {% endif %}
-            </tbody>
-        </table>
+        {% for answer_row in answers %}
+            <p id="answers">Id: {{ answer_row.id }} | Submission time: {{ answer_row.submission_time }} | Vote number: {{ answer_row.vote_number }} <br>
+            {{answer_row.message}}</p>
+            <details>
+            <summary>Comments</summary>
+            Hello
+            </details>
+        {% endfor %}
     </div>
     </div>
 </div>
