@@ -142,3 +142,26 @@ def get_latest_five_question(cursor):
 
     data = cursor.fetchall()
     return data
+
+@database_common.connection_handler
+def edit_answer(cursor, request_function, answer_id):
+    vote_number = request_function.get('vote_number')
+    question_id = request_function.get('answer_id')
+    message = request_function.get('message')
+    image = request_function.get('image')
+
+    cursor.execute(
+        """UPDATE answer 
+           SET id = %(answer_id)s,
+               vote_number = %(vote_number)s,
+              message = %(message)s,
+              image = %(image)s
+           WHERE id = %(answer_id)s;
+        """,
+        {'answer_id': answer_id,
+         'vote_number': vote_number,
+         'question_id': question_id,
+         'message': message,
+         'image': image,
+         }
+    )

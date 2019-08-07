@@ -83,6 +83,14 @@ def route_question_edit(question_id):
         data_manager.edit_question(request.form, question_id)
         return redirect('/')
 
+@app.route('/answer/<answer_id>/edit', methods=['GET', 'POST'])
+def route_edit_answer(answer_id):
+    if request.method == 'GET':
+        row = data_manager.get_data_by_key('id', answer_id, 'answer')
+        return render_template('answer_edit.html', rows=row, answer_id=answer_id)
+    else:
+        data_manager.edit_answer(request.form, answer_id)
+        return redirect('/')
 
 if __name__ == '__main__':
     app.run(debug=True)
