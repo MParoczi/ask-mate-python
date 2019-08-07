@@ -1,29 +1,39 @@
 import connection
 
 import calendar
-
+import database_common
 import time
 from datetime import datetime
 from operator import itemgetter
+from psycopg2 import sql
 
 
 from util import question_file_name, question_header,answer_file_name, answer_header
 
 
-def get_data_by_key(file_name, searching_key, key_to_search):
-    data = connection.read_file(file_name)
-    result = []
-    for row in data:
-        if row[key_to_search] == searching_key:
-            result.append(row)
-    return result
+@database_common.connection_handler
+def get_question_by_id(cursor, question_id):
+    cursor.execute(
+            """SELECT * FROM question
+                WHERE id = %(question_id)s;
+            """,
+            {'question_id': question_id}
+        )
+    row_dict = cursor.fetchall()
+    return row_dict
 
 
-def create_new_id(file_name):
-    NEW_ID = 1
-    data = connection.read_file(file_name)
-    highest_id = int(max(data, key=lambda x: int(x['id']))['id'])
-    return highest_id + NEW_ID
+@database_common.connection_handler
+def get_answers_by_question_id(cursor, question_id):
+    cursor.execute(
+            """SELECT * FROM answer
+                WHERE question_id = %(question_id)s;
+            """,
+            {'question_id': question_id}
+        )
+    row_dict = cursor.fetchall()
+    return row_dict
+
 
 
 def add_submission_time():
@@ -31,17 +41,15 @@ def add_submission_time():
     return submission_time
 
 
-def count_views_question(question_id):
-    data_to_modify = connection.read_file(question_file_name)
-    rows = []
-    NEW_VIEW = 1
-
-    for row in data_to_modify:
-        if question_id == row['id']:
-            row['view_number'] = int(row['view_number']) + NEW_VIEW
-        rows.append(row)
-
-    connection.write_file(question_file_name, rows, question_header)
+@database_common.connection_handler
+def count_views_question(cursor, question_id):
+    cursor.execute(
+            """ UPDATE question
+                SET view_number= view_number + 1
+                WHERE id = %(question_id)s;
+            """,
+        {'question_id': question_id}
+        )
 
 
 def make_new_question(request_function):
@@ -58,17 +66,20 @@ def make_new_question(request_function):
     connection.append_data(question_file_name, new_question, question_header)
 
 
-def make_new_answer(request_function, question_id):
-    INITIAL_VALUE = 0
-    id = create_new_id(answer_file_name)
-    submission_time = add_submission_time()
-    data = {'id': id,
-            'submission_time': submission_time,
-            'vote_number': INITIAL_VALUE,
-            'question_id': question_id,
-            'message': request_function.get('message'),
-            'image': request_function.get('image')}
-    connection.append_data(answer_file_name, data, answer_header)
+
+@database_common.connection_handler
+def insert_new_answer(cursor, request_function, question_id):
+    cursor.execute(
+        sql.SQL("insert into answer"
+                "values ( {submission_time}, 1, "
+                "{question_id},{request_function.get('message')}, {request_function.get('image')}").format(
+            message = sql.Identifier(request_function.get('message')),
+            image = sql.Identifier(request_function.get('image')),
+            question_id=sql.Identifier(question_id),
+            submission_time=sql.Identifier(add_submission_time()),
+        ))
+
+
 
 
 def convert_unix_to_human_time(data_from_csv):
@@ -98,17 +109,14 @@ def edit_question(request_function, question_id):
     connection.write_file(question_file_name, data_to_modify, question_header)
 
 
-def delete_question_by_id(question_id, key, header, file_name):
-    data = connection.read_file(file_name)
-    rows = []
-    for row in data:
-        if question_id == row[key]:
-            pass
-        else:
-            rows.append(row)
-
-    connection.write_file(file_name, rows, header)
-
+@database_common.connection_handler
+def delete_question_by_id(cursor, question_id):
+    cursor.execute(
+        """DELETE FROM question
+            WHERE id = %(question_id)s;
+        """,
+        {'question_id': question_id}
+    )
 
 
 def ordering_dict(title, direction, dict_to_order):
@@ -116,7 +124,7 @@ def ordering_dict(title, direction, dict_to_order):
     list_of_dict = []
     for dict in dict_to_order:
         for element in dict:
-            if element == 'id' or  element == 'view_number' or element == 'vote_number':
+            if element == 'id' or element == 'view_number' or element == 'vote_number':
                 dict[element] = int(dict[element])
         list_of_dict.append(dict)
     if direction == 'ascending':
@@ -128,6 +136,17 @@ def ordering_dict(title, direction, dict_to_order):
 
     return new_list
 
+
+
+@database_common.connection_handler
+def get_all_data(cursor, table_name):
+    cursor.execute(
+            sql.SQL(" select * from {table_name}").format(
+                table_name=sql.Identifier(table_name))
+            )
+
+    rows = cursor.fetchall()
+    return rows
 
 
 
