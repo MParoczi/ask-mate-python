@@ -14,7 +14,7 @@ def get_data_by_key(cursor, key, data_id, table):
         sql.SQL("select * from {table} "
                 "where {key} = (%s) ").
             format(table=sql.Identifier(table), key=sql.Identifier(key)),
-        data_id
+        [data_id]
     )
     row_dict = cursor.fetchall()
     return row_dict
