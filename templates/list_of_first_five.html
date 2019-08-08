@@ -5,20 +5,21 @@
     <title>Welcome!</title>
     <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
-    <div class="content">
-        <p><strong>Latest questions:</strong></p>
+<body class="listpage">
     <div>
+        <p class="orderby"><strong>Latest questions:</strong></p>
     <div>
+    <p>
 
             {% for question_row in questions %}
-                <p id="answers">Id: {{ question_row.id }} | Submission time: {{ question_row.submission_time }}| View number: {{ question_row.view_number }} | Vote number: {{ question_row.vote_number }} <br>
-                <a href="/question/{{ question_row.id }} ">{{ question_row.title }}</a><br>
-                {{question_row.message}}</p>
+                <p class="listquestion">Id: {{ question_row.id }} | Submission time: {{ question_row.submission_time }}| View number: {{ question_row.view_number }} | Vote number: {{ question_row.vote_number }} </p>
+                <p class="questions"><a href="/question/{{ question_row.id }} ">{{ question_row.title }}</a></p>
+                <p class="questions">{{question_row.message}}</p>
             {% endfor %}
 
     </div>
     </div>
-    <p>
+    <p class="ask_question">
         <form method="get">
             <button type="button" onclick="window.location.href='/list'">All questions</button>
         </form>

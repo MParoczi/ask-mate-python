@@ -13,6 +13,10 @@ body {
     width: 90%;
 }
 
+.listpage{
+  margin: 5%;
+  width: 90%;
+}
 
 .container{
   display: table;
@@ -58,8 +62,24 @@ body {
   padding-bottom: 10px;
 }
 
+.listquestion{
+  border-top: solid black 1pt;
+  padding-top: 8px;
+  padding-left: 20px;
+}
 
+.orderby{
+  padding-bottom: 20px;
+}
 
+.ask_question{
+  padding-top: 20px;
+}
+
+.questions{
+  padding-top: 8px;
+  padding-left: 20px;
+}
 table {
   border-collapse: collapse;
   background-color: powderblue;

@@ -5,8 +5,8 @@
     <title>Questions</title>
     <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
-<body>
-    <div class="content">
+<body class="listpage">
+    <div class="orderby">
     <form method="GET" action="/list">
             <label for="order_by">Order by:</label>
 
@@ -25,20 +25,18 @@
             <button type="submit">Ok</button>
     </form>
     </div>
-    <div class="content">
+    <div>
         <p><strong>All questions:</strong></p>
+    </div>
     <div>
-    <div>
-
             {% for question_row in questions %}
-                <p id="answers">Id: {{ question_row.id }} | Submission time: {{ question_row.submission_time }}| View number: {{ question_row.view_number }} | Vote number: {{ question_row.vote_number }} <br>
-                <a href="/question/{{ question_row.id }} ">{{ question_row.title }}</a><br>
-                {{question_row.message}}</p>
+                <p class="listquestion">Id: {{ question_row.id }} | Submission time: {{ question_row.submission_time }}| View number: {{ question_row.view_number }} | Vote number: {{ question_row.vote_number }} </p>
+                <p class="questions"><a href="/question/{{ question_row.id }} ">{{ question_row.title }}</a></p>
+                <p class="questions"> {{question_row.message}}</p>
             {% endfor %}
 
     </div>
-    </div>
-    <p>
+    <p class="ask_question">
         <form method="get" action="/add-question">
             <button type="submit">Ask a question</button>
         </form>
