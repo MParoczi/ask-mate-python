@@ -192,3 +192,24 @@ def get_comments_by_question_id(cursor, question_id):
     )
     comments = cursor.fetchall()
     return comments
+
+@database_common.connection_handler
+def get_comments_of_answers(cursor):
+    cursor.execute(
+        sql.SQL("""
+                SELECT * FROM comment
+                """))
+    comments = cursor.fetchall()
+    return comments
+
+
+@database_common.connection_handler
+def add_new_comment_to_answer(cursor, request_function, answer_id):
+    cursor.execute(
+        sql.SQL("""
+                INSERT INTO comment (answer_id, message, submission_time)
+                 VALUES (%s, %s, %s)
+                 """),
+                    [answer_id,
+                    request_function.get('new_comment'),
+                    add_submission_time()])
