@@ -58,6 +58,7 @@
         <p id="answers"><strong>Answers:</strong></p>
     </div>
     <div>
+        {% if answers %}
         {% for answer_row in answers %}
             <p class="answers">Id: {{ answer_row.id }} | Submission time: {{ answer_row.submission_time }} | Vote number: {{ answer_row.vote_number }} <a href="/answer/{{ answer_row.id }}/edit"><img src="{{ url_for('static', filename='edit_button.png') }}" width="25" height="25"></a> <br>
             {{answer_row.message}}</p>
@@ -74,6 +75,9 @@
                 </form>
             </details>
         {% endfor %}
+        {% else %}
+        <p>There are no answers to this question</p>
+        {% endif %}
     </div>
     </div>
     </div>
