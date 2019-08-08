@@ -215,11 +215,48 @@ def add_new_comment_to_answer(cursor, request_function, answer_id):
                     add_submission_time()])
 
 
-
 @database_common.connection_handler
 def delete_comment(cursor, comment_id):
     cursor.execute(
         sql.SQL("""
         DELETE FROM comment WHERE id = %s"""),
-        comment_id
+        [comment_id]
     )
+
+
+@database_common.connection_handler
+def get_question_id_from_comment(cursor, comment_id):
+    cursor.execute(
+        sql.SQL("""SELECT question_id
+                    FROM comment
+                    WHERE id = %s"""),
+        [comment_id]
+    )
+
+    id = cursor.fetchone()
+    if id['question_id'] is not None:
+        return id['question_id']
+    else:
+        cursor.execute(
+            sql.SQL("""SELECT DISTINCT answer.question_id
+                        FROM answer
+                        INNER JOIN comment
+                        ON answer.id = comment.answer_id
+                        WHERE comment.id = %s"""),
+            [comment_id]
+        )
+        id = cursor.fetchone()
+        return id['question_id']
+
+
+@database_common.connection_handler
+def get_question_id_from_answer(cursor, answer_id):
+    cursor.execute(
+        sql.SQL("""
+                SELECT question_id
+                FROM answer
+                WHERE id = %s"""),
+                [answer_id]
+    )
+    id = cursor.fetchone()
+    return id['question_id']
