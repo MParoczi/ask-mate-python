@@ -100,21 +100,22 @@ def route_add_comment_to_question(question_id):
     if request.method == 'POST':
         data_manager.add_comment_to_question(request.form, question_id)
 
-        return redirect('/list')
-
+        return redirect(url_for('route_question', question_id=question_id))
 
 
 @app.route('/answer/<answer_id>/new-comment', methods=['GET', 'POST'])
 def route_new_comment_for_answer(answer_id):
     if request.method == 'POST':
+        question_id = data_manager.get_question_id_from_answer(answer_id)
         data_manager.add_new_comment_to_answer(request.form, answer_id)
-        return redirect('/')
+        return redirect(url_for('route_question', question_id=question_id))
 
 
 @app.route('/comments/<comment_id>/delete')
 def route_delete_comment(comment_id):
+    question_id = data_manager.get_question_id_from_comment(comment_id)
     data_manager.delete_comment(comment_id)
-    return redirect('/')
+    return redirect(url_for('route_question', question_id=question_id))
 
 
 if __name__ == '__main__':
