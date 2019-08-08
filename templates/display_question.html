@@ -56,7 +56,7 @@
     </div>
     <div>
         {% for answer_row in answers %}
-            <p id="answers">Id: {{ answer_row.id }} | Submission time: {{ answer_row.submission_time }} | Vote number: {{ answer_row.vote_number }} <br>
+            <p id="answers">Id: {{ answer_row.id }} | Submission time: {{ answer_row.submission_time }} | Vote number: {{ answer_row.vote_number }} <a href="/answer/{{ answer_row.id }}/edit"><img src="{{ url_for('static', filename='edit_button.png') }}" width="25" height="25"></a> <br>
             {{answer_row.message}}</p>
             <details>
             <summary>Comments</summary>
