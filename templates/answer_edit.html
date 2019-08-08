@@ -1,8 +1,11 @@
 <html>
 <head>
     <title>Question Edit</title>
+     <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
 <body>
+    <div class="header">
+        <img src="/static/team_logo.png">
     {% for row in rows %}
     <form action="/answer/{{ answer_id }}/edit" method="post">
       <p>
@@ -15,11 +18,7 @@
         <br>
         <input id="vote_number" name="vote_number" value="{{ row.vote_number }}" readonly="readonly">
       </p>
-      <p>
-        <label for="question_id">Question_id</label>
-        <br>
-        <input id="question_id" name="question_id" type="text" value="{{ row.answer_id}}" readonly="readonly">
-      </p>
+
       <p>
         <label for="message">Message</label>
         <br>
@@ -34,5 +33,6 @@
       </p>
     </form>
     {% endfor %}
+    </div>
 </body>
 </html>

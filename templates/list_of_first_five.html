@@ -6,13 +6,16 @@
     <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
 <body class="listpage">
+    <div class="header">
+        <img src="/static/team_logo.png">
+    <div class="content">
     <div>
         <p class="orderby"><strong>Latest questions:</strong></p>
     <div>
     <p>
 
             {% for question_row in questions %}
-                <p class="listquestion">Id: {{ question_row.id }} | Submission time: {{ question_row.submission_time }}| View number: {{ question_row.view_number }} | Vote number: {{ question_row.vote_number }} </p>
+                <p class="listquestion"><i>Id: {{ question_row.id }} | Submission time: {{ question_row.submission_time }}| View number: {{ question_row.view_number }} | Vote number: {{ question_row.vote_number }} </i></p>
                 <p class="questions"><a href="/question/{{ question_row.id }} ">{{ question_row.title }}</a></p>
                 <p class="questions">{{question_row.message}}</p>
             {% endfor %}
@@ -24,5 +27,7 @@
             <button type="button" onclick="window.location.href='/list'">All questions</button>
         </form>
     </p>
+    </div>
+    </div>
 </body>
 </html>

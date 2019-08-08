@@ -34,10 +34,14 @@ body {
   padding-bottom: 0;
 }
 
-.header h2{
+.header_list{
+    display: table-cell;
+    width: 15%;
+  vertical-align: top;
+  margin-top: 5%;
+  padding-left: 30px;
+  padding-top: 10px;
   padding-bottom: 0;
-  color: darkblue ;
-  text-decoration-style: double;
 }
 
 .sidebar{
@@ -60,6 +64,7 @@ body {
 #answers {
   border-bottom: solid black 1pt;
   padding-bottom: 10px;
+  font-size: large;
 }
 
 .listquestion{
@@ -105,4 +110,12 @@ li{
 p.answers{
   padding-top: 8px;
   padding-left: 20px;
+}
+
+.textarea{
+    padding-left: 20px;
+}
+
+summary{
+    padding-bottom: 10px;
 }

@@ -188,7 +188,7 @@ def get_comments_by_question_id(cursor, question_id):
         """SELECT id, question_id, answer_id, message, submission_time, edited_count FROM comment
             WHERE question_id = %(question_id)s
         """,
-        {'question_id':question_id}
+        {'question_id': question_id}
     )
     comments = cursor.fetchall()
     return comments

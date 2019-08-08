@@ -31,10 +31,6 @@ def route_list():
                            order_parameter=order_parameter,
                            )
 
-@app.route('/list-database')
-def route_list_database():
-    data = data_manager.get_all_data('question')
-    return render_template('list_database.html', data=data)
 
 @app.route('/question/<question_id>', methods=['GET', 'POST'])
 def route_question(question_id):

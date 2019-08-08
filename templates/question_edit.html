@@ -2,8 +2,12 @@
 <html>
 <head>
     <title>Question Edit</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
 <body>
+    <div class="header">
+    <div>
+        <img src="/static/team_logo.png">
     {% for row in rows %}
     <form action="/question/{{ question_id }}/edit" method="post">
       <p>
@@ -40,5 +44,7 @@
       </p>
     </form>
     {% endfor %}
+    </div>
+    </div>
 </body>
 </html>
