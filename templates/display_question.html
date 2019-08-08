@@ -41,7 +41,7 @@
             <summary>Comments</summary>
                 {% for comment in question_comments %}
                     {% if comment.question_id == question_row.id %}
-                <p class="answers">{{ comment.message }}</p>
+                <p class="answers">{{ comment.message }} <a href="/comments/{{ comment.id }}/delete"><img src="{{ url_for('static', filename='bin.png') }}" width="25" height="25"></a></p>
                     {% endif %}
                 {% endfor %}
                 <form action="/question/{{ question_row.id }}/new-comment" method="POST">
@@ -59,13 +59,13 @@
     </div>
     <div>
         {% for answer_row in answers %}
-            <p class="answers">Id: {{ answer_row.id }} | Submission time: {{ answer_row.submission_time }} | Vote number: {{ answer_row.vote_number }} <br>
+            <p class="answers">Id: {{ answer_row.id }} | Submission time: {{ answer_row.submission_time }} | Vote number: {{ answer_row.vote_number }} <a href="/answer/{{ answer_row.id }}/edit"><img src="{{ url_for('static', filename='edit_button.png') }}" width="25" height="25"></a> <br>
             {{answer_row.message}}</p>
             <details>
             <summary>Comments</summary>
                 {% for comment in comments %}
                     {% if comment.answer_id == answer_row.id %}
-                <p class="answers">{{ comment.message }}</p>
+                <p class="answers">{{ comment.message }} <a href="/comments/{{ comment.id }}/delete"><img src="{{ url_for('static', filename='bin.png') }}" width="25" height="25"></a></p>
                     {% endif %}
                 {% endfor %}
                 <form action="/answer/{{ answer_row.id }}/new-comment" method="POST">

@@ -6,58 +6,38 @@
     <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
 <body>
-<table>
+    <div class="content">
     <form method="GET" action="/list">
-        <tr>
-            <td><label for="order_by">Order by:</label><br></td>
-            <td><label for="order_direction">Order direction:</label><br></td>
-            <td rowspan="2">
-            <button type="submit">Ok</button>
-            </td>
-        </tr>
+            <label for="order_by">Order by:</label>
 
-        <tr>
-            <td>
+
             <select name="order_by" id="order_by">
                 {% for header in order_parameter %}
                     <option value="{{ header }}">{{ header }}</option>
                 {% endfor %}
             </select>
-            </td>
-
-
-            <td>
+            <label for="order_direction">Order direction:</label>
             <select name="order_direction" id="order_direction">
                 {% for direction in order_directions %}
                     <option value="{{ direction }}">{{ direction }}</option>
                 {% endfor %}
             </select>
-            </td>
-        </tr>
+            <button type="submit">Ok</button>
     </form>
-</table>
-<table>
-        <tr>
-        <th>Id</th>
-        <th>Submission time</th>
-        <th>View number</th>
-        <th>Vote number </th>
-        <th>Title </th>
-        <th>Message</th>
-        <th>Image</th>
-        </tr>
-        {% for question in questions %}
-            <a>
-                <td>{{ question['id']}}</td>
-                <td>{{ question['submission_time']}}</td>
-                <td>{{ question['view_number']}}</td>
-                <td>{{ question['vote_number']}}</td>
-                <td><a href="/question/{{question['id']}}">{{ question['title']}}</td></a>
-                <td>{{ question['message']}}</td>
-                <td>{{ question['image']}}</td>
-            </tr>
-        {% endfor %}
-    </table>
+    </div>
+    <div class="content">
+        <p><strong>All questions:</strong></p>
+    <div>
+    <div>
+
+            {% for question_row in questions %}
+                <p id="answers">Id: {{ question_row.id }} | Submission time: {{ question_row.submission_time }}| View number: {{ question_row.view_number }} | Vote number: {{ question_row.vote_number }} <br>
+                <a href="/question/{{ question_row.id }} ">{{ question_row.title }}</a><br>
+                {{question_row.message}}</p>
+            {% endfor %}
+
+    </div>
+    </div>
     <p>
         <form method="get" action="/add-question">
             <button type="submit">Ask a question</button>

@@ -5,28 +5,19 @@
     <title>Welcome!</title>
     <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
-<table>
-        <tr>
-        <th>Id</th>
-        <th>Submission time</th>
-        <th>View number</th>
-        <th>Vote number </th>
-        <th>Title </th>
-        <th>Message</th>
-        <th>Image</th>
-        </tr>
-        {% for question in questions %}
-            <a>
-                <td>{{ question['id']}}</td>
-                <td>{{ question['submission_time']}}</td>
-                <td>{{ question['view_number']}}</td>
-                <td>{{ question['vote_number']}}</td>
-                <td><a href="/question/{{question['id']}}">{{ question['title']}}</td></a>
-                <td>{{ question['message']}}</td>
-                <td>{{ question['image']}}</td>
-            </tr>
-        {% endfor %}
-    </table>
+    <div class="content">
+        <p><strong>Latest questions:</strong></p>
+    <div>
+    <div>
+
+            {% for question_row in questions %}
+                <p id="answers">Id: {{ question_row.id }} | Submission time: {{ question_row.submission_time }}| View number: {{ question_row.view_number }} | Vote number: {{ question_row.vote_number }} <br>
+                <a href="/question/{{ question_row.id }} ">{{ question_row.title }}</a><br>
+                {{question_row.message}}</p>
+            {% endfor %}
+
+    </div>
+    </div>
     <p>
         <form method="get">
             <button type="button" onclick="window.location.href='/list'">All questions</button>
