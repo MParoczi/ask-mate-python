@@ -8,9 +8,12 @@
 </head>
 <body>
 <div class="container">
+    <div class="header">
+        <h2>H'TML</h2>
     <div class="sidebar">
-        <h3>Menu</h3>
-        <ul>
+
+        <ul class="list">
+            <li><h3>Menu</h3></li>
             <li><form action="/list" method="GET">
                     <button type="submit">Home</button></form>
             </li>
@@ -26,19 +29,19 @@
         </ul>
     </div>
     <div class="content">
-        <p><strong>Question Details:</strong></p>
+        <p id="answers"><strong>Question Details:</strong></p>
     <div>
     <div>
         {% for question_row in question %}
-            <p id="answers">Id: {{ question_row.id }} | Submission time: {{ question_row.submission_time }}| View number: {{ question_row.view_number }} | Vote number: {{ question_row.vote_number }} <br>
-            {{ question_row.title }}<br>
-            {{question_row.message}}</p>
+            <p class="answers">Id: {{ question_row.id }} | Submission time: {{ question_row.submission_time }}| View number: {{ question_row.view_number }} | Vote number: {{ question_row.vote_number }} </p>
+            <p class="answers">{{ question_row.title }}</p>
+            <p class="answers">{{question_row.message}}</p>
 
             <details>
             <summary>Comments</summary>
                 {% for comment in question_comments %}
                     {% if comment.question_id == question_row.id %}
-                <p>{{ comment.message }}</p>
+                <p class="answers">{{ comment.message }}</p>
                     {% endif %}
                 {% endfor %}
                 <form action="/question/{{ question_row.id }}/new-comment" method="POST">
@@ -52,17 +55,17 @@
     </div>
         <br>
     <div>
-        <p><strong>Answers:</strong></p>
+        <p id="answers"><strong>Answers:</strong></p>
     </div>
     <div>
         {% for answer_row in answers %}
-            <p id="answers">Id: {{ answer_row.id }} | Submission time: {{ answer_row.submission_time }} | Vote number: {{ answer_row.vote_number }} <br>
+            <p class="answers">Id: {{ answer_row.id }} | Submission time: {{ answer_row.submission_time }} | Vote number: {{ answer_row.vote_number }} <br>
             {{answer_row.message}}</p>
             <details>
             <summary>Comments</summary>
                 {% for comment in comments %}
                     {% if comment.answer_id == answer_row.id %}
-                <p>{{ comment.message }}</p>
+                <p class="answers">{{ comment.message }}</p>
                     {% endif %}
                 {% endfor %}
                 <form action="/answer/{{ answer_row.id }}/new-comment" method="POST">
@@ -71,6 +74,7 @@
                 </form>
             </details>
         {% endfor %}
+    </div>
     </div>
     </div>
 </div>
