@@ -111,5 +111,11 @@ def route_new_comment_for_answer(answer_id):
         return redirect('/')
 
 
+@app.route('/comments/<comment_id>/delete')
+def route_delete_comment(comment_id):
+    data_manager.delete_comment(comment_id)
+    return redirect('/')
+
+
 if __name__ == '__main__':
     app.run(debug=True)

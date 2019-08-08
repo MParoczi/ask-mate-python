@@ -38,7 +38,7 @@
             <summary>Comments</summary>
                 {% for comment in question_comments %}
                     {% if comment.question_id == question_row.id %}
-                <p>{{ comment.message }}</p>
+                <p>{{ comment.message }} <a href="/comments/{{ comment.id }}/delete"><img src="{{ url_for('static', filename='bin.png') }}" width="25" height="25"></a></p>
                     {% endif %}
                 {% endfor %}
                 <form action="/question/{{ question_row.id }}/new-comment" method="POST">
@@ -62,7 +62,7 @@
             <summary>Comments</summary>
                 {% for comment in comments %}
                     {% if comment.answer_id == answer_row.id %}
-                <p>{{ comment.message }}</p>
+                <p>{{ comment.message }} <a href="/comments/{{ comment.id }}/delete"><img src="{{ url_for('static', filename='bin.png') }}" width="25" height="25"></a></p>
                     {% endif %}
                 {% endfor %}
                 <form action="/answer/{{ answer_row.id }}/new-comment" method="POST">
