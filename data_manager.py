@@ -142,3 +142,74 @@ def get_latest_five_question(cursor):
 
     data = cursor.fetchall()
     return data
+
+@database_common.connection_handler
+def edit_answer(cursor, request_function, answer_id):
+    vote_number = request_function.get('vote_number')
+    question_id = request_function.get('answer_id')
+    message = request_function.get('message')
+    image = request_function.get('image')
+
+    cursor.execute(
+        """UPDATE answer 
+           SET id = %(answer_id)s,
+               vote_number = %(vote_number)s,
+              message = %(message)s,
+              image = %(image)s
+           WHERE id = %(answer_id)s;
+        """,
+        {'answer_id': answer_id,
+         'vote_number': vote_number,
+         'question_id': question_id,
+         'message': message,
+         'image': image,
+         }
+    )
+
+
+@database_common.connection_handler
+def add_comment_to_question(cursor, request_function, question_id):
+    submission_time = add_submission_time()
+    message = request_function.get('new_comment')
+
+    cursor.execute(
+        """INSERT INTO comment (question_id, message, submission_time) 
+            VALUES (%(question_id)s, %(message)s, %(submission_time)s)
+        """,
+        {
+            'question_id': question_id,
+            'submission_time': submission_time,
+            'message': message,
+        }
+    )
+@database_common.connection_handler
+def get_comments_by_question_id(cursor, question_id):
+    cursor.execute(
+        """SELECT id, question_id, answer_id, message, submission_time, edited_count FROM comment
+            WHERE question_id = %(question_id)s
+        """,
+        {'question_id':question_id}
+    )
+    comments = cursor.fetchall()
+    return comments
+
+@database_common.connection_handler
+def get_comments_of_answers(cursor):
+    cursor.execute(
+        sql.SQL("""
+                SELECT * FROM comment
+                """))
+    comments = cursor.fetchall()
+    return comments
+
+
+@database_common.connection_handler
+def add_new_comment_to_answer(cursor, request_function, answer_id):
+    cursor.execute(
+        sql.SQL("""
+                INSERT INTO comment (answer_id, message, submission_time)
+                 VALUES (%s, %s, %s)
+                 """),
+                    [answer_id,
+                    request_function.get('new_comment'),
+                    add_submission_time()])

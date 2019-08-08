@@ -44,9 +44,11 @@ def route_question(question_id):
     else:
         data_manager.insert_new_answer(request.form, question_id)
 
-    row=data_manager.get_data_by_key('id', question_id, 'question')
-    answers=data_manager.get_data_by_key('question_id', question_id, 'answer')
-    return render_template('display_question.html', question=row, answers=answers, question_id=question_id)
+    question_comments = data_manager.get_comments_by_question_id(question_id)
+    row = data_manager.get_data_by_key('id', question_id, 'question')
+    answers = data_manager.get_data_by_key('question_id', question_id, 'answer')
+    comments = data_manager.get_comments_of_answers()
+    return render_template('display_question.html', question=row, answers=answers, question_id=question_id, comments=comments, question_comments=question_comments)
 
 @app.route('/add-question', methods=['GET', 'POST'])
 def add_question():
@@ -81,6 +83,31 @@ def route_question_edit(question_id):
         return render_template('question_edit.html', rows=row, question_id=question_id)
     else:
         data_manager.edit_question(request.form, question_id)
+        return redirect('/')
+
+@app.route('/answer/<answer_id>/edit', methods=['GET', 'POST'])
+def route_edit_answer(answer_id):
+    if request.method == 'GET':
+        row = data_manager.get_data_by_key('id', answer_id, 'answer')
+        return render_template('answer_edit.html', rows=row, answer_id=answer_id)
+    else:
+        data_manager.edit_answer(request.form, answer_id)
+        return redirect('/')
+
+
+@app.route('/question/<question_id>/new-comment', methods=['GET', 'POST'])
+def route_add_comment_to_question(question_id):
+    if request.method == 'POST':
+        data_manager.add_comment_to_question(request.form, question_id)
+
+        return redirect('/list')
+
+
+
+@app.route('/answer/<answer_id>/new-comment', methods=['GET', 'POST'])
+def route_new_comment_for_answer(answer_id):
+    if request.method == 'POST':
+        data_manager.add_new_comment_to_answer(request.form, answer_id)
         return redirect('/')
 
 

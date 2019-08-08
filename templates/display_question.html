@@ -28,95 +28,49 @@
     <div class="content">
         <p><strong>Question Details:</strong></p>
     <div>
-    <details>
-        <table>
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Submission Time</th>
-                    <th>View Number</th>
-                    <th>Vote Number</th>
-                    <th>Image</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for question_row in question %}
-                <tr>
-                    <td>{{question_row.id}}</td>
-                    <td>{{question_row.submission_time}}</td>
-                    <td>{{question_row.view_number}}</td>
-                    <td>{{question_row.vote_number}}</td>
-                    <td>{{question_row.image}}</td>
-                </tr>
+    <div>
+        {% for question_row in question %}
+            <p id="answers">Id: {{ question_row.id }} | Submission time: {{ question_row.submission_time }}| View number: {{ question_row.view_number }} | Vote number: {{ question_row.vote_number }} <br>
+            {{ question_row.title }}<br>
+            {{question_row.message}}</p>
+
+            <details>
+            <summary>Comments</summary>
+                {% for comment in question_comments %}
+                    {% if comment.question_id == question_row.id %}
+                <p>{{ comment.message }}</p>
+                    {% endif %}
                 {% endfor %}
-            </tbody>
-        </table>
-    </details>
-    <br>
-    <table>
-         <thead>
-            <tr>
-                <th>Title</th>
-                <th>Message</th>
-            </tr>
-            </thead>
-        <tbody>
-            {% for question_row in question %}
-            <tr>
-                <td>{{question_row.title}}</td>
-                <td>{{question_row.message}}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+                <form action="/question/{{ question_row.id }}/new-comment" method="POST">
+                    <textarea name="new_comment"cols="20" rows="3">Your comment</textarea>
+                    <button type="submit">Submit</button>
+                </form>
+            </form>
+            </details>
+        {% endfor %}
+    </div>
     </div>
         <br>
     <div>
         <p><strong>Answers:</strong></p>
     </div>
     <div>
-        {% if answers %}
-    <details>
-        <table>
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Submission Time</th>
-                    <th>Vote Number</th>
-                    <th>Question Id</th>
-                    <th>Image</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for answer_row in answers %}
-                 <tr>
-                     <td>{{answer_row.id}}</td>
-                     <td>{{answer_row.submission_time}}</td>
-                     <td>{{answer_row.vote_number}}</td>
-                     <td>{{answer_row.question_id}}</td>
-                     <td>{{answer_row.image}}</td>
-                </tr>
+        {% for answer_row in answers %}
+            <p id="answers">Id: {{ answer_row.id }} | Submission time: {{ answer_row.submission_time }} | Vote number: {{ answer_row.vote_number }} <br>
+            {{answer_row.message}}</p>
+            <details>
+            <summary>Comments</summary>
+                {% for comment in comments %}
+                    {% if comment.answer_id == answer_row.id %}
+                <p>{{ comment.message }}</p>
+                    {% endif %}
                 {% endfor %}
-            </tbody>
-        </table>
-    </details>
-        <table>
-            <thead>
-                <tr>
-                    <th>Message</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for answer_row in answers %}
-                <tr>
-                    <td>{{answer_row.message}}</td>
-                </tr>
-                {% endfor %}
-              {% else %}
-                <strong>There is no answer to this question yet.</strong>
-              {% endif %}
-            </tbody>
-        </table>
+                <form action="/answer/{{ answer_row.id }}/new-comment" method="POST">
+                    <textarea name="new_comment"cols="20" rows="3">Your comment</textarea>
+                    <button type="submit">Submit</button>
+                </form>
+            </details>
+        {% endfor %}
     </div>
     </div>
 </div>
