@@ -1,14 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Welcome!</title>
-    <link rel="stylesheet" type="text/css" href="/static/style.css">
-</head>
-<body class="listpage">
-    <div class="header">
-        <img src="/static/team_logo.png">
-    <div class="content">
+{% extends "layout.html" %}
+
+{% block title %}
+    Latest Questions
+{% endblock %}
+
+{% block content %}
+
+
+    <div class="content-item content-two">
     <div>
         <p class="orderby"><strong>Latest questions:</strong></p>
     <div>
@@ -21,7 +20,7 @@
             {% endfor %}
 
     </div>
-    </div>
+
     <p class="ask_question">
         <form method="get">
             <button type="button" onclick="window.location.href='/list'">All questions</button>
@@ -29,5 +28,5 @@
     </p>
     </div>
     </div>
-</body>
-</html>
+
+{% endblock %}

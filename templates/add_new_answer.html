@@ -1,19 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Add an Answer</title>
-    <link rel="stylesheet" type="text/css" href="/static/style.css">
-</head>
-<body>
-<div class="header">
-        <img src="/static/team_logo.png">
-<form action="/question/{{ question_id }}" method="post">
-    <label for="message">Your Answer:</label>
-    <br>
-    <textarea id="message" name="message" minlength="10" cols="80" rows="10"></textarea>
-    <br>
-    <input type="submit" value="Submit Your Answer">
-</form>
+
+{% extends 'layout.html' %}
+
+{% block title %}
+    Write an Answer
+{% endblock %}
+
+{% block content %}
+
+<div class="content-item content-two">
+    <form action="/question/{{ question_id }}" method="post">
+        <label for="message">Your Answer:</label>
+        <br>
+        <textarea id="message" name="message" minlength="10" cols="80" rows="10"></textarea>
+        <br>
+        <input type="submit" value="Submit Your Answer">
+    </form>
 </div>
-</body>
-</html>
+{% endblock %}

@@ -1,11 +1,12 @@
-<html>
-<head>
-    <title>Question Edit</title>
-     <link rel="stylesheet" type="text/css" href="/static/style.css">
-</head>
-<body>
-    <div class="header">
-        <img src="/static/team_logo.png">
+{% extends "layout.html" %}
+
+{% block title %}
+    Edit Answer
+{% endblock %}
+
+{% block content %}
+
+    <div class="content-item content-two">
     {% for row in rows %}
     <form action="/answer/{{ answer_id }}/edit" method="post">
       <p>
@@ -34,5 +35,4 @@
     </form>
     {% endfor %}
     </div>
-</body>
-</html>
+{% endblock %}

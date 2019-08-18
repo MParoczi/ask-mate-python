@@ -77,9 +77,9 @@ def route_question_edit(question_id):
     if request.method == 'GET':
         row = data_manager.get_data_by_key('id', question_id, 'question')
         return render_template('question_edit.html', rows=row, question_id=question_id)
-    else:
-        data_manager.edit_question(request.form, question_id)
-        return redirect('/')
+
+    data_manager.edit_question(request.form, question_id)
+    return redirect('/')
 
 
 @app.route('/answer/<answer_id>/edit', methods=['GET', 'POST'])

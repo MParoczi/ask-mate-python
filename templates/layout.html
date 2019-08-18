@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}H'ATML{% endblock %}</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <div class="navbar-container">
+            <div class="navbar">
+                <div class="logo"><img src="/static/icons/team_logo.png" alt="Blue logo of H'ATML"></div>
+                <ul class="navbar-right">
+                    <li>Login</li>
+                    <li>Sign Up</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content">
+            {% block content %} {% endblock %}
+        </div>
+    </body>
+</html>
+
