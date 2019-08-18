@@ -7,32 +7,33 @@
 {% block content %}
 
     <div class="content-item content-two">
-    {% for row in rows %}
-    <form action="/answer/{{ answer_id }}/edit" method="post">
-      <p>
-        <label for="id">Id</label>
-        <br>
-        <input id="id" name="id" value="{{ row.id }}" readonly="readonly">
-      </p>
-      <p>
-         <label for="vote_number">Vote Number</label>
-        <br>
-        <input id="vote_number" name="vote_number" value="{{ row.vote_number }}" readonly="readonly">
-      </p>
+        {% for row in rows %}
+        <form action="/answer/{{ answer_id }}/edit" method="post">
+              <p class="spacing"><i>Id: {{ row.id }} | Vote Number: {{ row.vote_number }}</i></p>
 
-      <p>
-        <label for="message">Message</label>
-        <br>
-          <textarea id="message" name="message" minlength="10" cols="80" rows="10" required>{{ row.message }}</textarea>
-      </p>
-      <p>
-          <label for="image">Image Url</label>
-          <input id="image" name="image" type="url">
-      </p>
-      <p>
-          <input type="submit" value="Submit Edited Answer">
-      </p>
-    </form>
-    {% endfor %}
+              <div class="spacing">
+                <input id="id" name="id" value="{{ row.id }}" type="hidden">
+              </div>
+
+              <div class="spacing">
+                <input id="vote_number" name="vote_number" value="{{ row.vote_number }}" type="hidden">
+              </div>
+
+              <div class="spacing">
+                <label for="message">Message</label>
+                <br>
+                  <textarea id="message" name="message" minlength="10" cols="80" rows="10" required>{{ row.message }}</textarea>
+              </div>
+
+              <div class="spacing">
+                  <label for="image">Image Url</label>
+                  <input id="image" name="image" type="url">
+              </div>
+
+              <div class="spacing">
+                  <input type="submit" value="Submit Edited Answer">
+              </div>
+        </form>
+        {% endfor %}
     </div>
 {% endblock %}

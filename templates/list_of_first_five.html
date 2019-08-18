@@ -8,25 +8,26 @@
 
 
     <div class="content-item content-two">
-    <div>
-        <p class="orderby"><strong>Latest questions:</strong></p>
-    <div>
-    <p>
 
+
+        <div class="spacing">
+            <strong>Latest questions:</strong>
+        </div>
+
+        <div>
             {% for question_row in questions %}
-                <p class="listquestion"><i>Id: {{ question_row.id }} | Submission time: {{ question_row.submission_time }}| View number: {{ question_row.view_number }} | Vote number: {{ question_row.vote_number }} </i></p>
+                <p class="list-details"><i>Id: {{ question_row.id }} | Submission time: {{ question_row.submission_time }}| View number: {{ question_row.view_number }} | Vote number: {{ question_row.vote_number }} </i></p>
                 <p class="questions"><a href="/question/{{ question_row.id }} ">{{ question_row.title }}</a></p>
                 <p class="questions">{{question_row.message}}</p>
             {% endfor %}
+        </div>
 
-    </div>
+        <div class="spacing">
+            <form method="get">
+                <button type="button" onclick="window.location.href='/list'">All questions</button>
+            </form>
+        </div>
 
-    <p class="ask_question">
-        <form method="get">
-            <button type="button" onclick="window.location.href='/list'">All questions</button>
-        </form>
-    </p>
-    </div>
     </div>
 
 {% endblock %}

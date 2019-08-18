@@ -9,39 +9,42 @@
 
     <div class="content-item content-two">
 
-    <div class="orderby">
-    <form method="GET" action="/list">
-            <label for="order_by">Order by:</label>
-            <select name="order_by" id="order_by">
-                {% for header in order_parameter %}
-                    <option value="{{ header }}">{{ header }}</option>
-                {% endfor %}
-            </select>
-            <label for="order_direction">Order direction:</label>
-            <select name="order_direction" id="order_direction">
-                {% for direction in order_directions %}
-                    <option value="{{ direction }}">{{ direction }}</option>
-                {% endfor %}
-            </select>
-            <button type="submit">Ok</button>
-    </form>
-    </div>
-    <div class="content-item content-two">
-        <p class="all_questions"><strong>All questions:</strong></p>
+        <div class="spacing">
+            <form method="GET" action="/list">
+                    <label for="order_by">Order by:</label>
+                    <select name="order_by" id="order_by">
+                        {% for header in order_parameter %}
+                            <option value="{{ header }}">{{ header }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="order_direction">Order direction:</label>
+                    <select name="order_direction" id="order_direction">
+                        {% for direction in order_directions %}
+                            <option value="{{ direction }}">{{ direction }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit">Ok</button>
+            </form>
+        </div>
 
-    <div>
-            {% for question_row in questions %}
-                <p class="listquestion"><i>Id: {{ question_row.id }} | Submission time: {{ question_row.submission_time }}| View number: {{ question_row.view_number }} | Vote number: {{ question_row.vote_number }}</i> </p>
-                <p class="questions"><a href="/question/{{ question_row.id }} ">{{ question_row.title }}</a></p>
-                <p class="questions"> {{question_row.message}}</p>
-            {% endfor %}
+        <div class="content-item content-two">
+            <p class="all_questions"><strong>All questions:</strong></p>
+
+            <div>
+                    {% for question_row in questions %}
+                        <p class="list-details"><i>Id: {{ question_row.id }} | Submission time: {{ question_row.submission_time }}| View number: {{ question_row.view_number }} | Vote number: {{ question_row.vote_number }}</i> </p>
+                        <p class="questions"><a href="/question/{{ question_row.id }} ">{{ question_row.title }}</a></p>
+                        <p class="questions"> {{question_row.message}}</p>
+                    {% endfor %}
+
+            </div>
+            <p class="spacing">
+                <form method="get" action="/add-question">
+                    <button type="submit">Ask a question</button>
+                </form>
+            </p>
+        </div>
 
     </div>
-    <p class="ask_question">
-        <form method="get" action="/add-question">
-            <button type="submit">Ask a question</button>
-        </form>
-    </p>
-    </div>
-    </div>
+
 {% endblock %}

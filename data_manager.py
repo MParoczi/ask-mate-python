@@ -42,7 +42,7 @@ def make_new_question(cursor, request_function):
         sql.SQL(
             """
             INSERT INTO question (submission_time, view_number, vote_number, title, message, image) 
-            VALUES (%s, %s, %s, %s, %s, %s)
+            VALUES (%s, %s ,%s, %s,%s, %s)
             """
         ), [add_submission_time(),
             0,

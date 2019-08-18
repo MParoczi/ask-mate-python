@@ -7,42 +7,43 @@
 {% block content %}
 
     <div class="content-item content-two">
-    {% for row in rows %}
-    <form action="/question/{{ question_id }}/edit" method="post">
-      <p>
-        <label for="id">Id</label>
-        <br>
-        <input id="id" name="id" value="{{ row.id }}" readonly="readonly">
-      </p>
-      <p>
-         <label for="view_number">View Number</label>
-        <br>
-        <input id="view_number" name="view_number" type="text" value="{{ row.view_number }}" readonly="readonly">
-      </p>
-      <p>
-         <label for="vote_number">Vote Number</label>
-        <br>
-        <input id="vote_number" name="vote_number" value="{{ row.vote_number }}" readonly="readonly">
-      </p>
-      <p>
-        <label for="title">Title</label>
-        <br>
-        <input id="title" name="title" type="text" value="{{ row.title }}" required>
-      </p>
-      <p>
-        <label for="message">Message</label>
-        <br>
-          <textarea id="message" name="message" minlength="10" cols="80" rows="10" required>{{ row.message }}</textarea>
-      </p>
-      <p>
-          <label for="image">Image Url</label>
-          <input id="image" name="image" type="url">
-      </p>
-      <p>
-          <input type="submit" value="Submit Edited Question">
-      </p>
-    </form>
-    {% endfor %}
+        {% for row in rows %}
+        <form action="/question/{{ question_id }}/edit" method="post">
+          <div class="spacing">
+              <p><i>Id: {{ row.id }} | View Number: {{ row.view_number }} | Vote Number: {{ row.vote_number }}</i></p>
+            <input id="id" name="id" value="{{ row.id }}" type="hidden">
+          </div>
+
+          <div class="spacing">
+            <input id="view_number" name="view_number" type="hidden" value="{{ row.view_number }}">
+          </div>
+
+          <div class="spacing">
+            <input id="vote_number" name="vote_number" value="{{ row.vote_number }}" type="hidden">
+          </div>
+
+          <div class="spacing">
+            <label for="title">Title</label>
+            <br>
+            <input id="title" name="title" type="text" value="{{ row.title }}" required>
+          </div>
+
+          <div class="spacing">
+            <label for="message">Message</label>
+            <br>
+              <textarea id="message" name="message" minlength="10" cols="80" rows="10" required>{{ row.message }}</textarea>
+          </div>
+
+          <div class="spacing">
+              <label for="image">Image Url</label>
+              <input id="image" name="image" type="url">
+          </div>
+
+          <div class="spacing">
+              <input type="submit" value="Submit Edited Question">
+          </div>
+        </form>
+        {% endfor %}
     </div>
 
 {% endblock %}

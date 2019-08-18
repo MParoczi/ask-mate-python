@@ -7,19 +7,21 @@
 {% block content %}
 
 <div class="content-item content-two">
-    <h1>Ask new question</h1>
+    <h1 class="spacing">Ask new question</h1>
     <form action="/add-question" method="POST" id="add-question">
-        <p>
-            <label for="question_title">Title of question:</label><br>
+        <div>
+            <label for="question_title">Title of question:</label>
+            <br>
             <input type="text" id="question_title" name="question_title" required><br>
-        </p>
-        <p>
-            <label for="question">Question:</label><br>
+        </div>
+        <div>
+            <label for="question">Question:</label>
+            <br>
             <textarea id="question" name="question" rows="10" cols="80" required></textarea><br>
-        </p>
-        <p>
+        </div>
+        <div>
             <button type="submit">Ask new question</button>
-        </p>
+        </div>
     </form>
 </div>
 {% endblock %}
