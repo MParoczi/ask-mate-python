@@ -56,7 +56,7 @@ body{
 }
 
 .content-two{
-  margin-left: 10px;
+  margin-left: 30px;
 }
 
 .title {
@@ -85,17 +85,48 @@ li{
 }
 
 .sidebar{
-  padding-left: 10px;
+  padding-left: 5px;
 }
 
 .side-details{
   padding: 8px 0 20px 20px;
-
 }
 
-.textarea{
-    padding-left: 20px;
+textarea{
+    padding-left: 5px;
+    border: 2px solid sandybrown;
+    border-radius: 10px;
 }
 
+.comment-btn{
+    padding-left: 550px;
+    padding-top: 5px;
+}
 
+.comment-btn > button {
+    padding: 5px;
+    border-radius: 5px;
+    border: 2px solid sandybrown;
+}
 
+.side-btn{
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #dddddd;
+}
+
+input{
+    padding-left: 5px;
+    border: 2px solid sandybrown;
+    border-radius: 5px;
+}
+
+.submit-btn{
+    padding: 5px;
+}
+
+.ask-btn{
+    padding: 5px;
+    border: 2px solid sandybrown;
+    border-radius: 5px;
+}

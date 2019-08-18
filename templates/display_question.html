@@ -10,16 +10,16 @@
 
         <ul class="sidebar">
             <li><form action="/list" method="GET">
-                    <button type="submit">Home</button></form>
+                    <button class="side-btn" type="submit">Home</button></form>
             </li>
             <li><form action="/question/{{ question_id }}/add-new-answer" method="GET">
-                <button type="submit">Add an answer</button></form>
+                <button class="side-btn" type="submit">Add an answer</button></form>
             </li>
             <li><form action="/question/{{ question_id }}/edit" method="get">
-                    <button type="submit">Edit question</button></form>
+                    <button class="side-btn" type="submit">Edit question</button></form>
             </li>
             <li><form action="/question/{{ question_id }}/delete" method="POST">
-                <button type="submit">Delete question</button></form>
+                <button class="side-btn" type="submit">Delete question</button></form>
             </li>
         </ul>
     </div>
@@ -31,16 +31,16 @@
             <p class="spacing"><strong>{{ question_row.title }}</strong></p>
             <p class="spacing">{{question_row.message}}</p>
 
-            <details class="spacing">
-            <summary>Comments</summary>
+            <details>
+            <summary class="spacing">Comments</summary>
                 {% for comment in question_comments %}
                     {% if comment.question_id == question_row.id %}
                 <p>{{ comment.message }}  <a href="/comments/{{ comment.id }}/delete"><img src="{{ url_for('static', filename='bin.png') }}" width="25" height="25"></a></p>
                     {% endif %}
                 {% endfor %}
                 <form action="/question/{{ question_row.id }}/new-comment" method="POST">
-                    <textarea class="textarea" name="new_comment" cols="60" rows="3">Your comment</textarea>
-                    <p><button type="submit">Submit</button></p>
+                    <textarea name="new_comment" cols="120" rows="5">Your comment</textarea>
+                    <p class="comment-btn"><button type="submit">Submit</button></p>
             </form>
            </details>
         {% endfor %}
@@ -55,16 +55,16 @@
             <p class="side-details"><i>Id: {{ answer_row.id }} | Submission time: {{ answer_row.submission_time }} | Vote number: {{ answer_row.vote_number }}</i><a href="/answer/{{ answer_row.id }}/edit"> <img src="{{ url_for('static', filename='edit_button.png') }}" width="25" height="25"></a> </p>
             <p class="spacing">{{answer_row.message}}</p>
 
-             <details class="spacing">
-            <summary>Comments</summary>
+             <details>
+            <summary class="spacing">Comments</summary>
                 {% for comment in comments %}
                     {% if comment.answer_id == answer_row.id %}
                 <p class="spacing">{{ comment.message }}  <a href="/comments/{{ comment.id }}/delete"><img src="{{ url_for('static', filename='bin.png') }}" width="25" height="25"></a></p>
                     {% endif %}
                 {% endfor %}
                 <form action="/answer/{{ answer_row.id }}/new-comment" method="POST">
-                    <textarea class="textarea" name="new_comment" cols="60" rows="3">Your comment</textarea>
-                    <p><button type="submit">Submit</button></p>
+                    <textarea name="new_comment" cols="120" rows="5">Your comment</textarea>
+                    <p class="comment-btn"><button type="submit">Submit</button></p>
                 </form>
             </details>
         {% endfor %}
