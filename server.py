@@ -115,5 +115,15 @@ def route_delete_comment(comment_id):
     return redirect(url_for('route_question', question_id=question_id))
 
 
+@app.route('/question/<question_id>/vote', methods=['GET', 'POST'])
+def route_vote(question_id):
+    if request.method == "POST":
+        if request.form.get('vote') == "up":
+            data_manager.count_vote_up(question_id)
+        else:
+            data_manager.count_vote_down(question_id)
+        return redirect(url_for('route_question', question_id=question_id))
+
+
 if __name__ == '__main__':
     app.run(debug=True)

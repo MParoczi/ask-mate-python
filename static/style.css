@@ -130,3 +130,10 @@ input{
     border: 2px solid sandybrown;
     border-radius: 5px;
 }
+
+.vote-btn{
+    padding: 5px;
+    border: 2px solid sandybrown;
+    border-radius: 5px;
+}
+

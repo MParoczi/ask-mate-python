@@ -260,3 +260,24 @@ def get_question_id_from_answer(cursor, answer_id):
     )
     id = cursor.fetchone()
     return id['question_id']
+
+@database_common.connection_handler
+def count_vote_up(cursor, question_id):
+    cursor.execute(
+        """ UPDATE question
+            SET vote_number= vote_number + 1
+            WHERE id = %(question_id)s;
+        """,
+        {'question_id': question_id}
+    )
+
+
+@database_common.connection_handler
+def count_vote_down(cursor, question_id):
+    cursor.execute(
+        """ UPDATE question
+            SET vote_number= vote_number - 1
+            WHERE id = %(question_id)s;
+        """,
+        {'question_id': question_id}
+    )

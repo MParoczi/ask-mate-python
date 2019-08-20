@@ -27,7 +27,12 @@
         <p class="title"><strong>Question Details:</strong></p>
     <div>
         {% for question_row in question %}
-            <p class="side-details"><i>Id: {{ question_row.id }} | Submission time: {{ question_row.submission_time }}| View number: {{ question_row.view_number }} | Vote number: {{ question_row.vote_number }}</i></p>
+            <p class="side-details"><i>Id: {{ question_row.id }} | Submission time: {{ question_row.submission_time }}| View number: {{ question_row.view_number }} | Vote number: {{ question_row.vote_number }}</i>
+                 <form action="/question/{{ question_id }}/vote" method="post">
+                <button class="vote-btn" name="vote" type="submit" value="up">Vote up</button>
+                 <button class="vote-btn" name="vote" type="submit" value="down">Vote down</button>
+                </form>
+            </p>
             <p class="spacing"><strong>{{ question_row.title }}</strong></p>
             <p class="spacing">{{question_row.message}}</p>
 
