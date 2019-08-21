@@ -137,7 +137,7 @@ def route_sign_up():
         data_manager.save_new_user(request.form)
         return redirect('/')
     else:
-        return render_template('sign_up.html', sign_up=True)
+        return render_template('sign_up.html', sign_up=True, guest=True)
 
 
 @app.route('/login', methods=['POST', 'GET'])
