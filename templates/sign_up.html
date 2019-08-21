@@ -9,9 +9,12 @@
 {% endblock %}
 
 {% block content %}
-{% if wrong %}
+{% if occupied %}
+    <script>alert('This name is occupied!')</script>
+{% endif %}
+    {% if wrong %}
     <script> alert('Wrong Password/User name')</script>
-    {% endif %}
+{% endif %}
 <div class="content-item content-two">
 {% if sign_up %}
     <form action="/sign_up" method="POST">
