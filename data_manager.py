@@ -39,19 +39,20 @@ def count_views_question(cursor, question_id):
 
 
 @database_common.connection_handler
-def make_new_question(cursor, request_function):
+def make_new_question(cursor, request_function, user_id=None):
     cursor.execute(
         sql.SQL(
             """
-            INSERT INTO question (submission_time, view_number, vote_number, title, message, image) 
-            VALUES (%s, %s ,%s, %s,%s, %s)
+            INSERT INTO question (submission_time, view_number, vote_number, title, message, image, user_id) 
+            VALUES (%s, %s ,%s, %s,%s, %s, %s)
             """
         ), [add_submission_time(),
             0,
             0,
             request_function.get('question_title'),
             request_function.get('question'),
-            request_function.get('image')]
+            request_function.get('image'),
+            user_id]
 
     )
 
