@@ -10,7 +10,6 @@ app = Flask(__name__)
 app.secret_key = b' \xd4\x14\xf1\xbe\x0e\x91@\x11\x9f\xe5\xacp\xd8\xf0\xf5'
 
 
-
 @app.route('/')
 @app.route('/latest_five_question')
 def route_list_of_first_five_question():
@@ -142,6 +141,9 @@ def route_vote(question_id):
 @app.route('/sign_up', methods=['GET', 'POST'])
 def route_sign_up():
     if request.method == 'POST':
+        for name in data_manager.get_all_user_name():
+            if name['user_name'] == request.form.get('user_name'):
+                return render_template('sign_up.html', occupied=True, guest=True)
         data_manager.save_new_user(request.form)
         return redirect('/')
     else:

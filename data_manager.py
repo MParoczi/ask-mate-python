@@ -323,6 +323,16 @@ def get_user_id_by_name(cursor, request_function):
 
 
 @database_common.connection_handler
+def get_all_user_name(cursor):
+    cursor.execute(
+        sql.SQL("""
+        SELECT {column}
+        FROM {table}""").format(column=sql.Identifier('user_name'), table=sql.Identifier('user'))
+    )
+    return cursor.fetchall()
+
+
+@database_common.connection_handler
 def get_all_users(cursor):
     cursor.execute(sql.SQL(
         """
