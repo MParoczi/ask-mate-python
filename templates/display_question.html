@@ -40,7 +40,7 @@
             <summary class="spacing">Comments</summary>
                 {% for comment in question_comments %}
                     {% if comment.question_id == question_row.id %}
-                <p>{{ comment.message }}  <a href="/comments/{{ comment.id }}/delete"><img src="{{ url_for('static', filename='bin.png') }}" width="25" height="25"></a></p>
+                <p>{{ comment.message }}  <a href="/comments/{{ comment.id }}/delete"><img src="{{ url_for('static', filename='icons/bin.png') }}" width="25" height="25"></a></p>
                     {% endif %}
                 {% endfor %}
                 <form action="/question/{{ question_row.id }}/new-comment" method="POST">
@@ -57,14 +57,14 @@
     <div>
         {% if answers %}
         {% for answer_row in answers %}
-            <p class="side-details"><i>Id: {{ answer_row.id }} | Submission time: {{ answer_row.submission_time }} | Vote number: {{ answer_row.vote_number }}</i><a href="/answer/{{ answer_row.id }}/edit"> <img src="{{ url_for('static', filename='edit_button.png') }}" width="25" height="25"></a> </p>
+            <p class="side-details"><i>Id: {{ answer_row.id }} | Submission time: {{ answer_row.submission_time }} | Vote number: {{ answer_row.vote_number }}</i><a href="/answer/{{ answer_row.id }}/edit"> <img src="{{ url_for('static', filename='icons/edit_button.png') }}" width="25" height="25"></a> </p>
             <p class="spacing">{{answer_row.message}}</p>
 
              <details>
             <summary class="spacing">Comments</summary>
                 {% for comment in comments %}
                     {% if comment.answer_id == answer_row.id %}
-                <p class="spacing">{{ comment.message }}  <a href="/comments/{{ comment.id }}/delete"><img src="{{ url_for('static', filename='bin.png') }}" width="25" height="25"></a></p>
+                <p class="spacing">{{ comment.message }}  <a href="/comments/{{ comment.id }}/delete"><img src="{{ url_for('static', filename='icons/bin.png') }}" width="25" height="25"></a></p>
                     {% endif %}
                 {% endfor %}
                 <form action="/answer/{{ answer_row.id }}/new-comment" method="POST">
