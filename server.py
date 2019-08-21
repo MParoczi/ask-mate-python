@@ -129,7 +129,7 @@ def route_vote(question_id):
 
 @app.route('/sign_up', methods=['GET', 'POST'])
 def route_sign_up():
-    if request.method =='POST':
+    if request.method == 'POST':
         data_manager.save_new_user(request.form)
         return redirect('/')
     else:
@@ -147,7 +147,7 @@ def route_login():
             return redirect('/')
         else:
             flash('Wrong Username/Password')
-            return redirect('/')
+            return redirect('/login')
     else:
         return render_template('sign_up.html', sign_up=False)
 
