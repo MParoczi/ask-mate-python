@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
-import time
+
 import data_manager
 
 from util import question_header, order_directions, order_parameter
@@ -15,8 +15,12 @@ app.secret_key = b' \xd4\x14\xf1\xbe\x0e\x91@\x11\x9f\xe5\xacp\xd8\xf0\xf5'
 @app.route('/latest_five_question')
 def route_list_of_first_five_question():
     questions = data_manager.get_latest_five_question()
+    if 'user_id' in session:
+        user_name= session['user_name']
+        return render_template('list_of_first_five.html', questions=questions, guest=False, user_name=user_name)
 
-    return render_template('list_of_first_five.html', questions=questions)
+    return render_template('list_of_first_five.html', questions=questions, guest=True)
+
 
 @app.route('/list')
 def route_list():
@@ -139,19 +143,23 @@ def route_sign_up():
 @app.route('/login', methods=['POST', 'GET'])
 def route_login():
     if request.method == 'POST':
-        is_matching = data_manager.verify_user(request.form)
+        try:
+            is_matching = data_manager.verify_user(request.form)
+        except TypeError:
+            is_matching = False
         if is_matching:
             user_id = data_manager.get_user_id_by_name(request.form)
             session['user_id'] = user_id
+            session['user_name'] = request.form.get('user_name')
             return redirect('/')
         else:
-            return render_template('sign_up.html', wrong=True)
+            return render_template('sign_up.html', wrong=True, guest=True)
     else:
-        return render_template('sign_up.html', sign_up=False)
+        return render_template('sign_up.html', sign_up=False, guest=True)
 
 
 @app.route('/logout')
-def logout():
+def route_logout():
     session.pop('user_id', None)
     return redirect('/')
 
