@@ -7,6 +7,9 @@ from util import question_header, order_directions, order_parameter
 
 app = Flask(__name__)
 
+app.secret_key = b' \xd4\x14\xf1\xbe\x0e\x91@\x11\x9f\xe5\xacp\xd8\xf0\xf5'
+
+
 
 @app.route('/')
 @app.route('/latest_five_question')
@@ -124,6 +127,13 @@ def route_vote(question_id):
             data_manager.count_vote_down(question_id)
         return redirect(url_for('route_question', question_id=question_id))
 
+@app.route('/sign_up', methods=['GET', 'POST'])
+def route_sign_up():
+    if request.method =='POST':
+        data_manager.save_new_user(request.form)
+        return redirect('/')
+    else:
+        return render_template('sign_up.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

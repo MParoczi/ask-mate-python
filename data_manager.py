@@ -6,6 +6,8 @@ from operator import itemgetter
 
 from psycopg2 import sql
 
+import util
+
 
 
 @database_common.connection_handler
@@ -281,3 +283,12 @@ def count_vote_down(cursor, question_id):
         """,
         {'question_id': question_id}
     )
+
+@database_common.connection_handler
+def save_new_user(cursor, request_function):
+    cursor.execute(sql.SQL("""
+                INSERT INTO {table} ({user_name}, {hash}, {reg_date})
+                VALUES (%s, %s, %s)
+    """).format(table=sql.Identifier("user"), user_name=sql.Identifier("user_name"), hash=sql.Identifier("hash"), reg_date=sql.Identifier("reg_date")),
+                   [request_function.get("user_name"), util.hash_password(request_function.get('password')), add_submission_time()]
+                   )
