@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
-
+import time
 import data_manager
 
 from util import question_header, order_directions, order_parameter
@@ -143,13 +143,17 @@ def route_login():
         if is_matching:
             user_id = data_manager.get_user_id_by_name(request.form)
             session['user_id'] = user_id
-            flash("You are logged in")
             return redirect('/')
         else:
-            flash('Wrong Username/Password')
-            return redirect('/login')
+            return render_template('sign_up.html', wrong=True)
     else:
         return render_template('sign_up.html', sign_up=False)
+
+
+@app.route('/logout')
+def logout():
+    session.pop('user_id', None)
+    return redirect('/')
 
 
 if __name__ == '__main__':
