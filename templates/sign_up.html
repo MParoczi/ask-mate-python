@@ -1,11 +1,17 @@
 {% extends "layout.html" %}
 
 {% block title %}
+   {% if sign_up %}
     Sign up
+    {% else %}
+    Sign in
+    {% endif %}
 {% endblock %}
 
 {% block content %}
-
+{% if wrong %}
+    <script> alert('Wrong Password/User name')</script>
+    {% endif %}
 <div class="content-item content-two">
 {% if sign_up %}
     <form action="/sign_up" method="POST">
@@ -24,5 +30,6 @@
     <button type="submit">Sign in</button>
     </form>
 {% endif %}
+
 </div>
 {% endblock %}
