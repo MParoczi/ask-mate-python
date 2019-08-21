@@ -320,3 +320,18 @@ def get_user_id_by_name(cursor, request_function):
                    [request_function.get('user_name')]
                    )
     return cursor.fetchone()['id']
+
+
+@database_common.connection_handler
+def get_all_users(cursor):
+    cursor.execute(sql.SQL(
+        """
+        SELECT {user_name}, {reg_date} FROM {table1};
+        
+        """
+    ).format(user_name=sql.Identifier('user_name'), reg_date=sql.Identifier('reg_date'),
+             table1=sql.Identifier('user'))
+
+    )
+    user_dict = cursor.fetchall()
+    return user_dict

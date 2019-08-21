@@ -12,6 +12,10 @@
             <li><form action="/list" method="GET">
                     <button class="side-btn" type="submit">Home</button></form>
             </li>
+            {% if 'user_id' in session  %}
+            <li><form action="/list-users" method="get"><button class="side-btn">List all users</button></form>
+            </li>
+            {% endif %}
             <li><form action="/question/{{ question_id }}/add-new-answer" method="GET">
                 <button class="side-btn" type="submit">Add an answer</button></form>
             </li>

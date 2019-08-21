@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    List Users
+{% endblock %}
+
+{% block content %}
+     <div class="content-item content-two">
+        <table>
+            <thead>
+                <tr>
+                    <th>User name</th>
+                    <th>Registration Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for row in users_dict %}
+            <tr>
+                <td>{{ row.user_name }}</td>
+                <td>{{ row.reg_date }}</td>
+            </tr>
+              {% endfor %}
+            </tbody>
+        </table>
+     </div>
+{% endblock %}

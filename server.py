@@ -17,7 +17,7 @@ def route_list_of_first_five_question():
     questions = data_manager.get_latest_five_question()
     if 'user_id' in session:
         user_name = session['user_name']
-        return render_template('list_of_first_five.html', questions=questions, guest=False, user_name=user_name)
+        return render_template('list_of_first_five.html', questions=questions, guest=False)
 
     return render_template('list_of_first_five.html', questions=questions, guest=True)
 
@@ -172,6 +172,11 @@ def route_logout():
     session.pop('user_name')
     return redirect('/')
 
+
+@app.route('/list-users')
+def route_list_users():
+    users_dict = data_manager.get_all_users()
+    return render_template('list_users.html', users_dict=users_dict)
 
 if __name__ == '__main__':
     app.run(debug=True)

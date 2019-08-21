@@ -137,3 +137,20 @@ input{
     border-radius: 5px;
 }
 
+.login-btns{
+    padding: 0;
+    border: none;
+    background: none;
+    color: white;
+    font-size: large;
+    text-shadow: 2px 2px 2px #32309b;
+}
+
+td, th{
+    padding: 4px 4px 4px 8px;
+    color: midnightblue;
+}
+
+th{
+    font-size: large;
+}
