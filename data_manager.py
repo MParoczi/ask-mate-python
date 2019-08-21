@@ -292,3 +292,30 @@ def save_new_user(cursor, request_function):
     """).format(table=sql.Identifier("user"), user_name=sql.Identifier("user_name"), hash=sql.Identifier("hash"), reg_date=sql.Identifier("reg_date")),
                    [request_function.get("user_name"), util.hash_password(request_function.get('password')), add_submission_time()]
                    )
+
+
+@database_common.connection_handler
+def verify_user(cursor, request_function):
+    cursor.execute(
+        sql.SQL("""
+        SELECT {hash}
+        FROM {table}
+        WHERE {user_name} = %s""").format(hash=sql.Identifier('hash'), table=sql.Identifier('user'), user_name=sql.Identifier('user_name')),
+        [request_function.get('user_name')]
+    )
+    hash = cursor.fetchone()['hash']
+
+    return util.verify_password(request_function.get('password'), hash)
+
+
+@database_common.connection_handler
+def get_user_id_by_name(cursor, request_function):
+    cursor.execute(sql.SQL(
+        """
+        SELECT {id}
+        FROM {table}
+        WHERE {user_name} = %s"""
+    ).format(id=sql.Identifier('id'), table=sql.Identifier('user'), user_name=sql.Identifier('user_name')),
+                   [request_function.get('user_name')]
+                   )
+    return cursor.fetchone()['id']

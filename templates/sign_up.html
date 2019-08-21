@@ -7,12 +7,22 @@
 {% block content %}
 
 <div class="content-item content-two">
-<form action="/sign_up" method="POST">
+{% if sign_up %}
+    <form action="/sign_up" method="POST">
     <p><label for="user_name">Username:</label><br>
         <input id="user_name" type="text" name="user_name" required></p>
     <p><label for="password">Password:</label><br>
         <input id="password" type="password" name="password" required></p>
     <button type="submit"> Sign up</button>
 </form>
+{% else %}
+    <form action="/login" method="POST">
+    <p><label for="user_name">Username:</label><br>
+        <input id="user_name" type="text" name="user_name" required></p>
+    <p><label for="password">Password:</label><br>
+        <input id="password" type="password" name="password" required></p>
+    <button type="submit">Sign in</button>
+    </form>
+{% endif %}
 </div>
 {% endblock %}

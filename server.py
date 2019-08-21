@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 
 import data_manager
 
@@ -133,7 +133,24 @@ def route_sign_up():
         data_manager.save_new_user(request.form)
         return redirect('/')
     else:
-        return render_template('sign_up.html')
+        return render_template('sign_up.html', sign_up=True)
+
+
+@app.route('/login', methods=['POST', 'GET'])
+def route_login():
+    if request.method == 'POST':
+        is_matching = data_manager.verify_user(request.form)
+        if is_matching:
+            user_id = data_manager.get_user_id_by_name(request.form)
+            session['user_id'] = user_id
+            flash("You are logged in")
+            return redirect('/')
+        else:
+            flash('Wrong Username/Password')
+            return redirect('/')
+    else:
+        return render_template('sign_up.html', sign_up=False)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
