@@ -44,7 +44,12 @@ def route_question(question_id):
     if request.method == 'GET':
         data_manager.count_views_question(question_id)
     else:
-        data_manager.insert_new_answer(request.form, question_id)
+        if 'user_id' in session:
+            if request.method == 'POST':
+                data_manager.insert_new_answer(request.form, question_id, session['user_id'])
+                return redirect(f'/question/{question_id}')
+            return render_template('add_new_answer.html', question_id=question_id)
+        return redirect('/login')
 
     question_comments = data_manager.get_comments_by_question_id(question_id)
     row = data_manager.get_data_by_key('id', question_id, 'question')
@@ -75,10 +80,10 @@ def add_question():
 
 @app.route('/question/<question_id>/add-new-answer', methods=['GET', 'POST'])
 def route_new_answer(question_id):
-    if request.method == 'POST':
-        data_manager.insert_new_answer(request.form, question_id)
-        return redirect('/question/<question_id>')
-    return render_template('add_new_answer.html', question_id=question_id)
+        if request.method == 'POST':
+            data_manager.insert_new_answer(request.form, question_id, session['user_id'])
+            return redirect('/question/<question_id>')
+        return render_template('add_new_answer.html', question_id=question_id)
 
 
 @app.route('/question/<question_id>/delete', methods=['GET', 'POST'])
