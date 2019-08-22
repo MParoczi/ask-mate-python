@@ -58,11 +58,11 @@ def make_new_question(cursor, request_function, user_id=None):
 
 
 @database_common.connection_handler
-def insert_new_answer(cursor, request_function, question_id):
+def insert_new_answer(cursor, request_function, question_id, user_id):
     cursor.execute(
         sql.SQL(
-            "insert into answer (submission_time, vote_number, question_id, message, image) values ( %s, %s, %s, %s, %s ) ").format(),
-        [add_submission_time(), 0, question_id, request_function.get('message'), request_function.get('image')]
+            "insert into answer (submission_time, vote_number, question_id, message, image, user_id) values ( %s, %s, %s, %s, %s, %s ) ").format(),
+        [add_submission_time(), 0, question_id, request_function.get('message'), request_function.get('image'), user_id]
     )
 
 
