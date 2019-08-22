@@ -144,6 +144,7 @@ input{
     color: white;
     font-size: large;
     text-shadow: 2px 2px 2px #32309b;
+    cursor: pointer;
 }
 
 td, th{
