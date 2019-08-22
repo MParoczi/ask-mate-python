@@ -22,9 +22,11 @@
             <li><form action="/question/{{ question_id }}/edit" method="get">
                     <button class="side-btn" type="submit">Edit question</button></form>
             </li>
+            {% if verified %}
             <li><form action="/question/{{ question_id }}/delete" method="POST">
                 <button class="side-btn" type="submit">Delete question</button></form>
             </li>
+            {% endif %}
         </ul>
     </div>
     <div class="content-item content-two">

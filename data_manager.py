@@ -345,3 +345,17 @@ def get_all_users(cursor):
     )
     user_dict = cursor.fetchall()
     return user_dict
+
+
+@database_common.connection_handler
+def get_user_id(cursor, question_id):
+    cursor.execute(sql.SQL(
+        """
+        SELECT user_id FROM question
+        WHERE id = %s ;
+        """
+    ).format(), [question_id]
+
+    )
+    user_id = cursor.fetchone()
+    return user_id

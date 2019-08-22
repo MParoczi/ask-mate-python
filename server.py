@@ -15,7 +15,7 @@ app.secret_key = b' \xd4\x14\xf1\xbe\x0e\x91@\x11\x9f\xe5\xacp\xd8\xf0\xf5'
 def route_list_of_first_five_question():
     questions = data_manager.get_latest_five_question()
     if 'user_id' in session:
-        user_name = session['user_name']
+
         return render_template('list_of_first_five.html', questions=questions, guest=False)
 
     return render_template('list_of_first_five.html', questions=questions, guest=True)
@@ -50,7 +50,16 @@ def route_question(question_id):
     row = data_manager.get_data_by_key('id', question_id, 'question')
     answers = data_manager.get_data_by_key('question_id', question_id, 'answer')
     comments = data_manager.get_comments_of_answers()
-    return render_template('display_question.html', question=row, answers=answers, question_id=question_id, comments=comments, question_comments=question_comments)
+
+    verified = False
+    if 'user_id' in session:
+        user_id_from_db = data_manager.get_user_id(question_id)
+        if user_id_from_db['user_id'] == session['user_id']:
+            verified = True
+
+    return render_template('display_question.html', question=row, answers=answers, question_id=question_id, comments=comments, question_comments=question_comments, verified=verified)
+
+
 
 
 @app.route('/add-question', methods=['GET', 'POST'])
@@ -60,13 +69,8 @@ def add_question():
             data_manager.make_new_question(request.form, session['user_id'])
             return redirect('/')
         return render_template('add_question.html')
-    else:
-        if request.method == 'POST':
-            data_manager.make_new_question(request.form)
 
-            return redirect('/')
-
-        return render_template('add_question.html')
+    return redirect('/login')
 
 
 @app.route('/question/<question_id>/add-new-answer', methods=['GET', 'POST'])
