@@ -57,9 +57,9 @@ def route_question(question_id):
         if user_id_from_db['user_id'] == session['user_id']:
             verified = True
 
-    return render_template('display_question.html', question=row, answers=answers, question_id=question_id, comments=comments, question_comments=question_comments, verified=verified)
-
-
+        return render_template('display_question.html', question=row, answers=answers, question_id=question_id, comments=comments, question_comments=question_comments, verified=verified, user_id=session['user_id'])
+    return render_template('display_question.html', question=row, answers=answers, question_id=question_id,
+                           comments=comments, question_comments=question_comments)
 
 
 @app.route('/add-question', methods=['GET', 'POST'])
@@ -111,18 +111,20 @@ def route_edit_answer(answer_id):
 
 @app.route('/question/<question_id>/new-comment', methods=['GET', 'POST'])
 def route_add_comment_to_question(question_id):
-    if request.method == 'POST':
-        data_manager.add_comment_to_question(request.form, question_id)
+    if 'user_id' in session:
+        if request.method == 'POST':
+            data_manager.add_comment_to_question(request.form, question_id, session['user_id'])
 
-        return redirect(url_for('route_question', question_id=question_id))
+            return redirect(url_for('route_question', question_id=question_id))
 
 
 @app.route('/answer/<answer_id>/new-comment', methods=['GET', 'POST'])
 def route_new_comment_for_answer(answer_id):
-    if request.method == 'POST':
-        question_id = data_manager.get_question_id_from_answer(answer_id)
-        data_manager.add_new_comment_to_answer(request.form, answer_id)
-        return redirect(url_for('route_question', question_id=question_id))
+    if 'user_id' in session:
+        if request.method == 'POST':
+            question_id = data_manager.get_question_id_from_answer(answer_id)
+            data_manager.add_new_comment_to_answer(request.form, answer_id, session['user_id'])
+            return redirect(url_for('route_question', question_id=question_id))
 
 
 @app.route('/comments/<comment_id>/delete')

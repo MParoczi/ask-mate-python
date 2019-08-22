@@ -178,24 +178,25 @@ def edit_answer(cursor, request_function, answer_id):
 
 
 @database_common.connection_handler
-def add_comment_to_question(cursor, request_function, question_id):
+def add_comment_to_question(cursor, request_function, question_id, user_id):
     submission_time = add_submission_time()
     message = request_function.get('new_comment')
 
     cursor.execute(
-        """INSERT INTO comment (question_id, message, submission_time) 
-            VALUES (%(question_id)s, %(message)s, %(submission_time)s)
+        """INSERT INTO comment (question_id, message, submission_time, user_id) 
+            VALUES (%(question_id)s, %(message)s, %(submission_time)s, %(user_id)s)
         """,
         {
             'question_id': question_id,
             'submission_time': submission_time,
             'message': message,
+            'user_id': user_id
         }
     )
 @database_common.connection_handler
 def get_comments_by_question_id(cursor, question_id):
     cursor.execute(
-        """SELECT id, question_id, answer_id, message, submission_time, edited_count FROM comment
+        """SELECT id, question_id, answer_id, message, submission_time, edited_count, user_id FROM comment
             WHERE question_id = %(question_id)s
         """,
         {'question_id': question_id}
@@ -214,15 +215,15 @@ def get_comments_of_answers(cursor):
 
 
 @database_common.connection_handler
-def add_new_comment_to_answer(cursor, request_function, answer_id):
+def add_new_comment_to_answer(cursor, request_function, answer_id, user_id):
     cursor.execute(
         sql.SQL("""
-                INSERT INTO comment (answer_id, message, submission_time)
-                 VALUES (%s, %s, %s)
+                INSERT INTO comment (answer_id, message, submission_time, user_id)
+                 VALUES (%s, %s, %s, %s)
                  """),
                     [answer_id,
                     request_function.get('new_comment'),
-                    add_submission_time()])
+                    add_submission_time(), user_id])
 
 
 @database_common.connection_handler
@@ -366,3 +367,5 @@ def get_user_id(cursor, question_id):
     )
     user_id = cursor.fetchone()
     return user_id
+
+

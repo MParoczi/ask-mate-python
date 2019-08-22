@@ -19,10 +19,10 @@
             <li><form action="/question/{{ question_id }}/add-new-answer" method="GET">
                 <button class="side-btn" type="submit">Add an answer</button></form>
             </li>
+            {% if verified %}
             <li><form action="/question/{{ question_id }}/edit" method="get">
                     <button class="side-btn" type="submit">Edit question</button></form>
             </li>
-            {% if verified %}
             <li><form action="/question/{{ question_id }}/delete" method="POST">
                 <button class="side-btn" type="submit">Delete question</button></form>
             </li>
@@ -46,13 +46,19 @@
             <summary class="spacing">Comments</summary>
                 {% for comment in question_comments %}
                     {% if comment.question_id == question_row.id %}
-                <p>{{ comment.message }}  <a href="/comments/{{ comment.id }}/delete"><img src="{{ url_for('static', filename='icons/bin.png') }}" width="25" height="25"></a></p>
+                <p>{{ comment.message }}
+                    {% if user_id == comment.user_id %}
+                    <a href="/comments/{{ comment.id }}/delete"><img src="{{ url_for('static', filename='icons/bin.png') }}" width="25" height="25"></a>
+                    {% endif %}
+                        </p>
                     {% endif %}
                 {% endfor %}
+                   {% if 'user_id' in session  %}
                 <form action="/question/{{ question_row.id }}/new-comment" method="POST">
                     <textarea name="new_comment" cols="120" rows="5">Your comment</textarea>
                     <p class="comment-btn"><button type="submit">Submit</button></p>
-            </form>
+                </form>
+                    {% endif %}
            </details>
         {% endfor %}
     </div>
@@ -63,20 +69,30 @@
     <div>
         {% if answers %}
         {% for answer_row in answers %}
-            <p class="side-details"><i>Id: {{ answer_row.id }} | Submission time: {{ answer_row.submission_time }} | Vote number: {{ answer_row.vote_number }}</i><a href="/answer/{{ answer_row.id }}/edit"> <img src="{{ url_for('static', filename='icons/edit_button.png') }}" width="25" height="25"></a> </p>
+            <p class="side-details"><i>Id: {{ answer_row.id }} | Submission time: {{ answer_row.submission_time }} | Vote number: {{ answer_row.vote_number }}</i>
+                {% if user_id == answer_row.user_id %}
+                <a href="/answer/{{ answer_row.id }}/edit"> <img src="{{ url_for('static', filename='icons/edit_button.png') }}" width="25" height="25"></a>
+                {% endif %}
+            </p>
             <p class="spacing">{{answer_row.message}}</p>
 
              <details>
             <summary class="spacing">Comments</summary>
                 {% for comment in comments %}
                     {% if comment.answer_id == answer_row.id %}
-                <p class="spacing">{{ comment.message }}  <a href="/comments/{{ comment.id }}/delete"><img src="{{ url_for('static', filename='icons/bin.png') }}" width="25" height="25"></a></p>
+                <p class="spacing">{{ comment.message }}
+                    {% if user_id == comment.user_id %}
+                    <a href="/comments/{{ comment.id }}/delete"><img src="{{ url_for('static', filename='icons/bin.png') }}" width="25" height="25"></a>
+                    {% endif %}
+                        </p>
                     {% endif %}
                 {% endfor %}
+                 {% if 'user_id' in session  %}
                 <form action="/answer/{{ answer_row.id }}/new-comment" method="POST">
                     <textarea name="new_comment" cols="120" rows="5">Your comment</textarea>
                     <p class="comment-btn"><button type="submit">Submit</button></p>
                 </form>
+                {% endif %}
             </details>
         {% endfor %}
         {% else %}
